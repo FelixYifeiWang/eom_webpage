@@ -1,0 +1,413 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "ParamBreath",
+			"GroupId": "",
+			"Name": "呼吸"
+		},
+		{
+			"Id": "ParamBreath2",
+			"GroupId": "",
+			"Name": "热气球输入"
+		},
+		{
+			"Id": "Param",
+			"GroupId": "ParamGroup",
+			"Name": "热气球1"
+		},
+		{
+			"Id": "Param2",
+			"GroupId": "ParamGroup",
+			"Name": "热气球2"
+		},
+		{
+			"Id": "Param3",
+			"GroupId": "ParamGroup",
+			"Name": "热气球3"
+		},
+		{
+			"Id": "Param4",
+			"GroupId": "ParamGroup",
+			"Name": "热气球4"
+		},
+		{
+			"Id": "Param5",
+			"GroupId": "ParamGroup",
+			"Name": "---------"
+		},
+		{
+			"Id": "Param6",
+			"GroupId": "ParamGroup",
+			"Name": "树1"
+		},
+		{
+			"Id": "Param7",
+			"GroupId": "ParamGroup",
+			"Name": "树2"
+		},
+		{
+			"Id": "Param8",
+			"GroupId": "ParamGroup",
+			"Name": "树3"
+		},
+		{
+			"Id": "Param9",
+			"GroupId": "ParamGroup",
+			"Name": "树33"
+		},
+		{
+			"Id": "Param10",
+			"GroupId": "ParamGroup",
+			"Name": "树4"
+		},
+		{
+			"Id": "Param11",
+			"GroupId": "ParamGroup",
+			"Name": "树44"
+		},
+		{
+			"Id": "Param12",
+			"GroupId": "ParamGroup2",
+			"Name": "光1"
+		},
+		{
+			"Id": "Param13",
+			"GroupId": "ParamGroup2",
+			"Name": "光2"
+		},
+		{
+			"Id": "Param24",
+			"GroupId": "ParamGroup3",
+			"Name": "木桥"
+		},
+		{
+			"Id": "Param25",
+			"GroupId": "ParamGroup3",
+			"Name": "---------"
+		},
+		{
+			"Id": "Param14",
+			"GroupId": "ParamGroup3",
+			"Name": "人1尾巴1"
+		},
+		{
+			"Id": "Param15",
+			"GroupId": "ParamGroup3",
+			"Name": "人1尾巴11"
+		},
+		{
+			"Id": "Param16",
+			"GroupId": "ParamGroup3",
+			"Name": "---------"
+		},
+		{
+			"Id": "Param17",
+			"GroupId": "ParamGroup3",
+			"Name": "角色2 手"
+		},
+		{
+			"Id": "Param18",
+			"GroupId": "ParamGroup3",
+			"Name": "角色2武器"
+		},
+		{
+			"Id": "Param19",
+			"GroupId": "ParamGroup3",
+			"Name": "角色2耳朵"
+		},
+		{
+			"Id": "Param20",
+			"GroupId": "ParamGroup3",
+			"Name": "---------"
+		},
+		{
+			"Id": "Param21",
+			"GroupId": "ParamGroup3",
+			"Name": "角色3尾巴1"
+		},
+		{
+			"Id": "Param22",
+			"GroupId": "ParamGroup3",
+			"Name": "角色3尾巴11"
+		},
+		{
+			"Id": "Param23",
+			"GroupId": "ParamGroup3",
+			"Name": "角色3呼吸"
+		},
+		{
+			"Id": "Param26",
+			"GroupId": "ParamGroup4",
+			"Name": "飘带1"
+		},
+		{
+			"Id": "Param27",
+			"GroupId": "ParamGroup4",
+			"Name": "飘带2"
+		},
+		{
+			"Id": "Param29",
+			"GroupId": "ParamGroup4",
+			"Name": "飘带3"
+		},
+		{
+			"Id": "Param28",
+			"GroupId": "ParamGroup4",
+			"Name": "绳索"
+		},
+		{
+			"Id": "Param33",
+			"GroupId": "ParamGroup5",
+			"Name": "整体移动x"
+		},
+		{
+			"Id": "Param30",
+			"GroupId": "ParamGroup5",
+			"Name": "整体移动y"
+		},
+		{
+			"Id": "Param31",
+			"GroupId": "ParamGroup5",
+			"Name": "螺旋桨"
+		},
+		{
+			"Id": "Param32",
+			"GroupId": "ParamGroup5",
+			"Name": "网1"
+		},
+		{
+			"Id": "Param34",
+			"GroupId": "ParamGroup5",
+			"Name": "网2"
+		},
+		{
+			"Id": "Param46",
+			"GroupId": "ParamGroup6",
+			"Name": "耳饰"
+		},
+		{
+			"Id": "Param35",
+			"GroupId": "ParamGroup6",
+			"Name": "衣摆1"
+		},
+		{
+			"Id": "Param36",
+			"GroupId": "ParamGroup6",
+			"Name": "衣摆11"
+		},
+		{
+			"Id": "Param37",
+			"GroupId": "ParamGroup6",
+			"Name": "衣摆2"
+		},
+		{
+			"Id": "Param38",
+			"GroupId": "ParamGroup6",
+			"Name": "衣摆22"
+		},
+		{
+			"Id": "Param39",
+			"GroupId": "ParamGroup6",
+			"Name": "衣摆3"
+		},
+		{
+			"Id": "Param40",
+			"GroupId": "ParamGroup6",
+			"Name": "衣摆33"
+		},
+		{
+			"Id": "Param42",
+			"GroupId": "ParamGroup6",
+			"Name": "衣摆4"
+		},
+		{
+			"Id": "Param41",
+			"GroupId": "ParamGroup6",
+			"Name": "衣摆44"
+		},
+		{
+			"Id": "Param45",
+			"GroupId": "ParamGroup6",
+			"Name": "---------"
+		},
+		{
+			"Id": "Param43",
+			"GroupId": "ParamGroup6",
+			"Name": "手臂1"
+		},
+		{
+			"Id": "Param44",
+			"GroupId": "ParamGroup6",
+			"Name": "手臂2"
+		},
+		{
+			"Id": "Param47",
+			"GroupId": "ParamGroup7",
+			"Name": "魔法1"
+		},
+		{
+			"Id": "Param48",
+			"GroupId": "ParamGroup7",
+			"Name": "魔法11"
+		},
+		{
+			"Id": "Param49",
+			"GroupId": "ParamGroup7",
+			"Name": "魔法111"
+		},
+		{
+			"Id": "Param50",
+			"GroupId": "ParamGroup7",
+			"Name": "魔法2"
+		},
+		{
+			"Id": "Param51",
+			"GroupId": "ParamGroup7",
+			"Name": "魔法3"
+		},
+		{
+			"Id": "Param52",
+			"GroupId": "ParamGroup7",
+			"Name": "魔法4"
+		},
+		{
+			"Id": "Param53",
+			"GroupId": "ParamGroup7",
+			"Name": "魔法5"
+		},
+		{
+			"Id": "Param54",
+			"GroupId": "",
+			"Name": "1"
+		},
+		{
+			"Id": "Param55",
+			"GroupId": "",
+			"Name": "2"
+		},
+		{
+			"Id": "Param56",
+			"GroupId": "",
+			"Name": "3"
+		},
+		{
+			"Id": "Param57",
+			"GroupId": "",
+			"Name": "4"
+		},
+		{
+			"Id": "Param58",
+			"GroupId": "",
+			"Name": "5"
+		}
+	],
+	"ParameterGroups": [
+		{
+			"Id": "ParamGroup",
+			"GroupId": "",
+			"Name": "背景前景"
+		},
+		{
+			"Id": "ParamGroup2",
+			"GroupId": "",
+			"Name": "光影"
+		},
+		{
+			"Id": "ParamGroup3",
+			"GroupId": "",
+			"Name": "路人"
+		},
+		{
+			"Id": "ParamGroup4",
+			"GroupId": "",
+			"Name": "房屋飘带和绳索"
+		},
+		{
+			"Id": "ParamGroup5",
+			"GroupId": "",
+			"Name": "热气球"
+		},
+		{
+			"Id": "ParamGroup6",
+			"GroupId": "",
+			"Name": "人"
+		},
+		{
+			"Id": "ParamGroup7",
+			"GroupId": "",
+			"Name": "魔法"
+		},
+		{
+			"Id": "ParamGroup8",
+			"GroupId": "",
+			"Name": "浮动"
+		}
+	],
+	"Parts": [
+		{
+			"Id": "Part27",
+			"Name": "D4.psd(未找到对应图层)"
+		},
+		{
+			"Id": "Part",
+			"Name": "光和热气球"
+		},
+		{
+			"Id": "Part3",
+			"Name": "近景角色"
+		},
+		{
+			"Id": "Part6",
+			"Name": "建筑及中远景角色"
+		},
+		{
+			"Id": "Part14",
+			"Name": "光和热气球"
+		},
+		{
+			"Id": "Part2",
+			"Name": "热气球"
+		},
+		{
+			"Id": "Part4",
+			"Name": "魔法"
+		},
+		{
+			"Id": "Part5",
+			"Name": "前景人"
+		},
+		{
+			"Id": "Part7",
+			"Name": "角色1"
+		},
+		{
+			"Id": "Part9",
+			"Name": "角色3"
+		},
+		{
+			"Id": "Part8",
+			"Name": "角色2"
+		},
+		{
+			"Id": "Part10",
+			"Name": "树"
+		},
+		{
+			"Id": "Part11",
+			"Name": "中景木屋"
+		},
+		{
+			"Id": "Part12",
+			"Name": "左边房屋"
+		},
+		{
+			"Id": "Part13",
+			"Name": "远景"
+		},
+		{
+			"Id": "Part15",
+			"Name": "热气球"
+		}
+	]
+}
