@@ -24,17 +24,26 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.4); 
+      background-color: rgba(0, 0, 0, 0.2); 
       pointer-events: none; /* Allows clicks to pass through */
       z-index: 900;
     }
     .centered-image {
-      width: 80%;       /* Set the width of the image to 80% of its container */
+      width: 80vw;       /* Set the width of the image to 80% of its container */
       position: fixed;        /* Fix the position of the image relative to the viewport */
-      top: -5vh;                 /* Align the top edge of the image with the top of the viewport */
+      top: 0;                 /* Align the top edge of the image with the top of the viewport */
       left: 50%;              /* Align the left edge of the image to the center of the viewport */
       transform: translateX(-50%);
       z-index: 1000;
+    }
+    .centered-video {
+      position: fixed; /* Use fixed positioning */
+      top: 0;
+      left: 0;
+      width: 100vw; /* 100% of the viewport width */
+      height: 100vh; /* 100% of the viewport height */
+      object-fit: cover; /* Cover the screen while maintaining aspect ratio */
+      z-index: 800; /* Keep the video behind other content */
     }
     canvas {
       animation: fadeIn 15s ease-in-out forwards;
@@ -46,7 +55,11 @@
   <body>
     <img src="logo1.png" alt="Echo of Mobius" class="centered-image">
     <div id="overlay"></div>
-    <script>
+    <video class="centered-video" autoplay loop muted>
+      <source src="final.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <!-- <script>
       addEventListener("DOMContentLoaded", function () {
         new Live2dLoader([
           {
@@ -63,6 +76,6 @@
           },
         ]);
       });
-    </script>
+    </script> -->
   </body>
 </html>
