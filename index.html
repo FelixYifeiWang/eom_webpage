@@ -5,54 +5,149 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="favicon.png" type="image/png">
-    <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/combine/gh/dylanNew/live2d/webgl/Live2D/lib/live2d.min.js,npm/pixi.js@6.5.2/dist/browser/pixi.min.js,npm/pixi-live2d-display/dist/index.min.js,gh/Weidows-projects/Live2dLoader/dist/Live2dLoader.min.js"></script>
+    <script>
+      window.onload = function() {
+        var video = document.querySelector('video');
+        video.playbackRate = 0.8; 
+      };
+    </script>
+    <style>
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      body, html {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+        background-color: black;
+        /* cursor: url('cursor.png'), auto; Custom cursor */
+      }
+      #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.2); 
+        pointer-events: none; /* Allows clicks to pass through */
+        z-index: 900;
+      }
+      .centered-image {
+        width: 80vw;       /* 80% of viewport width */
+        position: fixed;
+        top: -3vh;         /* Slight adjustment for top alignment */
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+      }
+      .image-container {
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 30vw; /* 30% of viewport width */
+        z-index: 1000;
+      }
+      /* Positioning for each image container */
+      .image-container.demo {
+        top: 62vh;
+      }
+      .image-container.steam {
+        top: 75vh;
+      }
+      .image-container img {
+        width: 100%;
+        display: block;
+        transition: opacity 0.5s ease-in-out;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      /* Hide the hover image initially */
+      .image-container img.hover {
+        opacity: 0;
+      }
+      /* On hover, fade in the hover image */
+      .image-container:hover img.hover {
+        opacity: 1;
+      }
+      .centered-video {
+        position: fixed; /* Fixed positioning */
+        top: 0;
+        left: 0;
+        width: 100vw; /* 100% of viewport width */
+        height: 100vh; /* 100% of viewport height */
+        object-fit: cover; /* Cover the screen while maintaining aspect ratio */
+        z-index: 800; /* Behind other content */
+      }
+      canvas {
+        animation: fadeIn 15s ease-in-out forwards;
+        position: fixed !important; /* Ensure canvas stays fixed */
+        z-index: 1 !important; /* Lower than other elements */
+        background-color: black;
+      }
+
+      /* Responsive Design for Vertical (Portrait) Screens */
+      @media only screen and (orientation: portrait) {
+        .centered-image {
+          width: 160vw;       /* Reduce width for smaller screens */
+          top: 5vh;          /* Adjust top position */
+        }
+        .image-container {
+          width: 40vw; /* Increase width for better visibility */
+        }
+        .image-container.demo {
+          top: 70vh; /* Adjust positioning */
+          width: 70vw;
+        }
+        .image-container.steam {
+          top: 80vh; /* Adjust positioning */
+          width: 70vw;
+        }
+      }
+
+      /* Additional Responsive Adjustments for Smaller Widths */
+      @media only screen and (max-width: 768px) {
+        .centered-image {
+          width: 140vw;
+          top: 2vh;
+        }
+        .image-container {
+          width: 50vw;
+        }
+        .image-container.demo {
+          top: 65vh;
+          width: 80vw;
+        }
+        .image-container.steam {
+          top: 78vh;
+          width: 80vw;
+        }
+      }
+
+      /* Optional: Hide overlay on very small screens if necessary */
+      @media only screen and (max-width: 480px) {
+        #overlay {
+          background-color: rgba(0, 0, 0, 0.4); /* Slightly darker overlay */
+        }
+        .centered-image {
+          width: 180vw;
+          top: 20vh;
+        }
+        .image-container {
+          width: 60vw;
+        }
+        .image-container.demo {
+          top: 65vh;
+          width: 100vw;
+        }
+        .image-container.steam {
+          top: 75vh;
+          width: 100vw;
+        }
+      }
+    </style>
   </head>
-  <style>
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    body, html {
-      margin: 0;
-      height: 100%;
-      overflow: hidden;
-      background-color: black;
-    }
-    #overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.2); 
-      pointer-events: none; /* Allows clicks to pass through */
-      z-index: 900;
-    }
-    .centered-image {
-      width: 80vw;       /* Set the width of the image to 80% of its container */
-      position: fixed;        /* Fix the position of the image relative to the viewport */
-      top: 0;                 /* Align the top edge of the image with the top of the viewport */
-      left: 50%;              /* Align the left edge of the image to the center of the viewport */
-      transform: translateX(-50%);
-      z-index: 1000;
-    }
-    .centered-video {
-      position: fixed; /* Use fixed positioning */
-      top: 0;
-      left: 0;
-      width: 100vw; /* 100% of the viewport width */
-      height: 100vh; /* 100% of the viewport height */
-      object-fit: cover; /* Cover the screen while maintaining aspect ratio */
-      z-index: 800; /* Keep the video behind other content */
-    }
-    canvas {
-      animation: fadeIn 15s ease-in-out forwards;
-      position: fixed !important; /* Ensure canvas stays fixed */
-      z-index: 1 !important; /* Lower than the button's z-index */
-      background-color: black;
-    }
-  </style>
   <body>
     <img src="logo1.png" alt="Echo of Mobius" class="centered-image">
     <div id="overlay"></div>
@@ -60,23 +155,21 @@
       <source src="final.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
-    <!-- <script>
-      addEventListener("DOMContentLoaded", function () {
-        new Live2dLoader([
-          {
-            width: window.innerWidth,
-            height: window.innerHeight,
-            left: "0px",
-            bottom: "0px",
-            role: "./D4/D4.model3.json",
-            background: "./logo.jpg",
-            opacity: 1,
-            scale: window.innerHeight/2345,
-            mobile: false,
-            draggable: false,
-          },
-        ]);
-      });
-    </script> -->
+
+    <!-- Image Container for Demo with clickable link -->
+    <a href="https://demo.dreamin.land" target="_blank">
+      <div class="image-container demo">
+        <img src="demo1.png" alt="Play Demo" class="default">
+        <img src="demo2.png" alt="Play Demo" class="hover">
+      </div>
+    </a>
+
+    <!-- Image Container for Steam with clickable link -->
+    <a href="https://store.steampowered.com/app/2974560/Echo_of_Mobius/" target="_blank">
+      <div class="image-container steam">
+        <img src="steam1.png" alt="Steam Page" class="default">
+        <img src="steam2.png" alt="Steam Page" class="hover">
+      </div>
+    </a>
   </body>
 </html>
