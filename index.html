@@ -12,17 +12,22 @@
       };
     </script>
     <style>
-      @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
+      /* Apply box-sizing globally for consistency */
+      *, *::before, *::after {
+        box-sizing: border-box;
       }
-      body, html {
+
+      /* Prevent overscrolling */
+      html, body {
         margin: 0;
-        height: 100%;
-        overflow: hidden;
+        padding: 0;
         background-color: black;
-        /* cursor: url('cursor.png'), auto; Custom cursor */
+        overflow-x: hidden;
+        overscroll-behavior-y: none; /* Prevent overscroll on Y-axis */
+        scroll-behavior: smooth; /* Optional: Smooth scrolling */
       }
+
+      /* Fixed Overlay */
       #overlay {
         position: fixed;
         top: 0;
@@ -33,6 +38,8 @@
         pointer-events: none; /* Allows clicks to pass through */
         z-index: 900;
       }
+
+      /* Centered Logo Image */
       .centered-image {
         width: 80vw;       /* 80% of viewport width */
         position: fixed;
@@ -41,6 +48,8 @@
         transform: translateX(-50%);
         z-index: 1000;
       }
+
+      /* Image Containers for Demo and Steam Links */
       .image-container {
         position: fixed;
         left: 50%;
@@ -48,13 +57,17 @@
         width: 30vw; /* 30% of viewport width */
         z-index: 1000;
       }
+
       /* Positioning for each image container */
       .image-container.demo {
         top: 62vh;
       }
+
       .image-container.steam {
         top: 75vh;
       }
+
+      /* Images within Containers */
       .image-container img {
         width: 100%;
         display: block;
@@ -63,14 +76,18 @@
         top: 0;
         left: 0;
       }
+
       /* Hide the hover image initially */
       .image-container img.hover {
         opacity: 0;
       }
+
       /* On hover, fade in the hover image */
       .image-container:hover img.hover {
         opacity: 1;
       }
+
+      /* Fixed Background Video */
       .centered-video {
         position: fixed; /* Fixed positioning */
         top: 0;
@@ -80,6 +97,8 @@
         object-fit: cover; /* Cover the screen while maintaining aspect ratio */
         z-index: 800; /* Behind other content */
       }
+
+      /* Canvas Element */
       canvas {
         animation: fadeIn 15s ease-in-out forwards;
         position: fixed !important; /* Ensure canvas stays fixed */
@@ -87,11 +106,11 @@
         background-color: black;
       }
 
-      /* Responsive Design for Vertical (Portrait) Screens */
+      /* Responsive Design for Portrait Screens */
       @media only screen and (orientation: portrait) {
         .centered-image {
-          width: 160vw;       /* Reduce width for smaller screens */
-          top: 5vh;          /* Adjust top position */
+          width: 160vw;       /* Adjust width for smaller screens */
+          top: 5vh;           /* Adjust top position */
         }
         .image-container {
           width: 40vw; /* Increase width for better visibility */
@@ -106,7 +125,7 @@
         }
       }
 
-      /* Additional Responsive Adjustments for Smaller Widths */
+      /* Responsive Adjustments for Smaller Widths */
       @media only screen and (max-width: 768px) {
         .centered-image {
           width: 140vw;
@@ -125,7 +144,7 @@
         }
       }
 
-      /* Optional: Hide overlay on very small screens if necessary */
+      /* Optional: Adjust Overlay on Very Small Screens */
       @media only screen and (max-width: 480px) {
         #overlay {
           background-color: rgba(0, 0, 0, 0.4); /* Slightly darker overlay */
@@ -146,17 +165,59 @@
           width: 100vw;
         }
       }
+
+      /* Additional Content Container */
+      .additional-content-container {
+        position: relative;
+        z-index: 1001; /* Above overlay and fixed elements */
+        margin-top: 100vh; /* Push the content below the initial viewport */
+      }
+
+      /* Additional Content with Gradient Fade-In at Top */
+      .additional-content {
+        position: relative;
+        padding: 20px;
+        color: white;
+        background: linear-gradient(
+          to bottom,
+          rgba(17, 17, 17, 0) 0%,   /* Transparent at top */
+          rgba(17, 17, 17, 1) 10%,  /* Opaque starting */
+          rgba(17, 17, 17, 1) 100%  /* Solid color at bottom */
+        );
+      }
+
+      /* Remove any default margins from sections */
+      .additional-content h2,
+      .additional-content h3,
+      .additional-content p,
+      .additional-content section {
+        margin: 0 0 1em 0;
+      }
+
+      .additional-content h2 {
+        padding-top: 50px;
+      }
+
+      /* Ensure body height matches content */
+      body {
+        min-height: 100vh;
+      }
     </style>
   </head>
   <body>
-    <img src="logo1.png" alt="Echo of Mobius" class="centered-image">
-    <div id="overlay"></div>
+    <!-- Fixed Background Video -->
     <video class="centered-video" autoplay loop muted>
       <source src="final.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
 
-    <!-- Image Container for Demo with clickable link -->
+    <!-- Fixed Overlay -->
+    <div id="overlay"></div>
+
+    <!-- Fixed Centered Logo Image -->
+    <img src="logo1.png" alt="Echo of Mobius" class="centered-image">
+
+    <!-- Fixed Image Containers with Clickable Links -->
     <a href="https://demo.dreamin.land" target="_blank">
       <div class="image-container demo">
         <img src="demo1.png" alt="Play Demo" class="default">
@@ -164,12 +225,34 @@
       </div>
     </a>
 
-    <!-- Image Container for Steam with clickable link -->
     <a href="https://store.steampowered.com/app/2974560/Echo_of_Mobius/" target="_blank">
       <div class="image-container steam">
         <img src="steam1.png" alt="Steam Page" class="default">
         <img src="steam2.png" alt="Steam Page" class="hover">
       </div>
     </a>
+
+    <!-- Additional Content Container with Fade-In Top Edge -->
+    <div class="additional-content-container">
+      <div class="additional-content">
+        <h2>More About Echo of Mobius</h2>
+        <p>
+          Welcome to the Echo of Mobius community! Here you can find more information about the game, updates, news, and more.
+        </p>
+        <!-- Add more content as needed -->
+        <section>
+          <h3>Latest Updates</h3>
+          <p>Stay tuned for the latest patches and features coming to Echo of Mobius.</p>
+        </section>
+        <section>
+          <h3>Community Events</h3>
+          <p>Join our community events and interact with other players from around the world.</p>
+        </section>
+        <section>
+          <h3>Contact Us</h3>
+          <p>If you have any questions or feedback, feel free to reach out to our support team.</p>
+        </section>
+      </div>
+    </div>
   </body>
 </html>
