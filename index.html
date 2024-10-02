@@ -11,6 +11,8 @@
         video.playbackRate = 0.8; 
       };
     </script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
+
     <style>
       /* Apply box-sizing globally for consistency */
       *, *::before, *::after {
@@ -43,7 +45,7 @@
       .centered-image {
         width: 80vw;       /* 80% of viewport width */
         position: fixed;
-        top: -3vh;         /* Slight adjustment for top alignment */
+        top: -10vh;         /* Slight adjustment for top alignment */
         left: 50%;
         transform: translateX(-50%);
         z-index: 1000;
@@ -60,11 +62,52 @@
 
       /* Positioning for each image container */
       .image-container.demo {
-        top: 62vh;
+        top: 58vh;
       }
 
       .image-container.steam {
-        top: 75vh;
+        top: 71vh;
+      }
+
+      .image-container.x {
+        bottom: 10vh;
+        width: 2.5vw;
+        transform: translateX(calc(-50% - 2vw));
+      }
+
+      .image-container.rd {
+        bottom: 10vh;
+        width: 2.5vw;
+        transform: translateX(calc(-50% + 2vw));
+      }
+      
+      .image-container.tt {
+        bottom: 10vh;
+        width: 2.5vw;
+        transform: translateX(calc(-50% + 6vw));
+      }
+
+      .image-container.dc {
+        bottom: 10vh;
+        width: 2.5vw;
+        transform: translateX(calc(-50% - 6vw));
+      }
+
+      .youtube-embed {
+        position: relative;
+        width: 60%; /* Set the desired width (e.g., 60% of the parent container) */
+        margin: 2em auto; /* Centers the embed horizontally and adds vertical spacing */
+        padding-bottom: 33.75%; /* Adjusted Aspect Ratio for smaller size (16:9 * 0.6 = ~9:5) */
+        height: 0;
+      }
+
+      .youtube-embed iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
       }
 
       /* Images within Containers */
@@ -106,22 +149,58 @@
         background-color: black;
       }
 
+      .youtube-embed::before,
+      .youtube-embed::after {
+        content: "";
+        position: absolute;
+        top: 25%;
+        width: 1px; /* Thickness of the lines */
+        height: 50%; /* Full height of the container */
+        background-color: white; /* Color of the lines */
+      }
+
+      /* Position the left line */
+      .youtube-embed::before {
+        left: -10px; /* Adjust the horizontal position as needed */
+      }
+
+      /* Position the right line */
+      .youtube-embed::after {
+        right: -10px; /* Adjust the horizontal position as needed */
+      }
+
       /* Responsive Design for Portrait Screens */
       @media only screen and (orientation: portrait) {
         .centered-image {
           width: 160vw;       /* Adjust width for smaller screens */
-          top: 5vh;           /* Adjust top position */
+          top: 3vh;           /* Adjust top position */
         }
         .image-container {
           width: 40vw; /* Increase width for better visibility */
         }
         .image-container.demo {
-          top: 70vh; /* Adjust positioning */
+          top: 60vh; /* Adjust positioning */
           width: 70vw;
         }
         .image-container.steam {
-          top: 80vh; /* Adjust positioning */
+          top: 70vh; /* Adjust positioning */
           width: 70vw;
+        }
+        .image-container.x {
+          width: 8vw;
+          transform: translateX(calc(-50% - 8vw));
+        }
+        .image-container.rd {
+          width: 8vw;
+          transform: translateX(calc(-50% + 8vw));
+        }
+        .image-container.tt {
+          width: 8vw;
+          transform: translateX(calc(-50% + 24vw));
+        }
+        .image-container.dc {
+          width: 8vw;
+          transform: translateX(calc(-50% - 24vw));
         }
       }
 
@@ -135,12 +214,28 @@
           width: 50vw;
         }
         .image-container.demo {
-          top: 65vh;
+          top: 55vh;
           width: 80vw;
         }
         .image-container.steam {
-          top: 78vh;
+          top: 68vh;
           width: 80vw;
+        }
+        .image-container.x {
+          width: 8vw;
+          transform: translateX(calc(-50% - 8vw));
+        }
+        .image-container.rd {
+          width: 8vw;
+          transform: translateX(calc(-50% + 8vw));
+        }
+        .image-container.tt {
+          width: 8vw;
+          transform: translateX(calc(-50% + 24vw));
+        }
+        .image-container.dc {
+          width: 8vw;
+          transform: translateX(calc(-50% - 24vw));
         }
       }
 
@@ -151,18 +246,34 @@
         }
         .centered-image {
           width: 180vw;
-          top: 20vh;
+          top: 10vh;
         }
         .image-container {
           width: 60vw;
         }
         .image-container.demo {
-          top: 65vh;
+          top: 58vh;
           width: 100vw;
         }
         .image-container.steam {
-          top: 75vh;
+          top: 68vh;
           width: 100vw;
+        }
+        .image-container.x {
+          width: 10vw;
+          transform: translateX(calc(-50% - 8vw));
+        }
+        .image-container.rd {
+          width: 10vw;
+          transform: translateX(calc(-50% + 8vw));
+        }
+        .image-container.tt {
+          width: 10vw;
+          transform: translateX(calc(-50% + 24vw));
+        }
+        .image-container.dc {
+          width: 10vw;
+          transform: translateX(calc(-50% - 24vw));
         }
       }
 
@@ -176,13 +287,14 @@
       /* Additional Content with Gradient Fade-In at Top */
       .additional-content {
         position: relative;
+        height: min-content;
         padding: 20px;
         color: white;
         background: linear-gradient(
           to bottom,
-          rgba(17, 17, 17, 0) 0%,   /* Transparent at top */
-          rgba(17, 17, 17, 1) 10%,  /* Opaque starting */
-          rgba(17, 17, 17, 1) 100%  /* Solid color at bottom */
+          rgba(0,0,0, 0) 0%,   /* Transparent at top */
+          rgb(0,0,0) 10%,  /* Opaque starting */
+          rgb(0,0,0) 100%  /* Solid color at bottom */
         );
       }
 
@@ -194,9 +306,36 @@
         margin: 0 0 1em 0;
       }
 
-      .additional-content h2 {
-        padding-top: 50px;
+      .line1 h2 {
+        margin-top: 40vh;
+        text-align: center;
+        font-family: 'Nunito', sans-serif;
+        font-weight: 300; /* Use 300 for a thin appearance */
+        letter-spacing: 0.1em; /* Adjust as needed for better readability */
+        /* Optional: Adjust line-height for better spacing */
+        line-height: 1.4;
       }
+      .line2 h2 {
+        margin-top: 20vh;
+        font-size: medium;
+        text-align: center;
+        font-family: 'Nunito', sans-serif;
+        font-weight: 300; /* Use 300 for a thin appearance */
+        letter-spacing: 0.1em; /* Adjust as needed for better readability */
+        /* Optional: Adjust line-height for better spacing */
+        line-height: 1;
+      }
+      .line3 h2 {
+        margin-top: 10vh;
+        font-size: medium;
+        text-align: center;
+        font-family: 'Nunito', sans-serif;
+        font-weight: 300; /* Use 300 for a thin appearance */
+        letter-spacing: 0.1em; /* Adjust as needed for better readability */
+        /* Optional: Adjust line-height for better spacing */
+        line-height: 1;
+      }
+
 
       /* Ensure body height matches content */
       body {
@@ -232,26 +371,76 @@
       </div>
     </a>
 
+    <a href="https://x.com/echo_of_mobius" target="_blank">
+      <div class="image-container x">
+        <img src="x.png" alt="X" class="default">
+        <img src="x1.png" alt="X" class="hover">
+      </div>
+    </a>
+
+    <a href="https://discord.gg/AUNQUREjAS" target="_blank">
+      <div class="image-container dc">
+        <img src="dc.png" alt="Discord" class="default">
+        <img src="dc1.png" alt="Discord" class="hover">
+      </div>
+    </a>
+
+    <a href="https://www.reddit.com/user/echo_of_mobius/" target="_blank">
+      <div class="image-container rd">
+        <img src="rd.png" alt="Reddit" class="default">
+        <img src="rd1.png" alt="Reddit" class="hover">
+      </div>
+    </a>
+
+    <a href="https://www.tiktok.com/@echo_of_mobius" target="_blank">
+      <div class="image-container tt">
+        <img src="tt.png" alt="Tiktok" class="default">
+        <img src="tt1.png" alt="Tiktok" class="hover">
+      </div>
+    </a>
+    
+
+    
+
     <!-- Additional Content Container with Fade-In Top Edge -->
     <div class="additional-content-container">
       <div class="additional-content">
-        <h2>More About Echo of Mobius</h2>
-        <p>
-          Welcome to the Echo of Mobius community! Here you can find more information about the game, updates, news, and more.
-        </p>
-        <!-- Add more content as needed -->
-        <section>
-          <h3>Latest Updates</h3>
-          <p>Stay tuned for the latest patches and features coming to Echo of Mobius.</p>
-        </section>
-        <section>
-          <h3>Community Events</h3>
-          <p>Join our community events and interact with other players from around the world.</p>
-        </section>
-        <section>
-          <h3>Contact Us</h3>
-          <p>If you have any questions or feedback, feel free to reach out to our support team.</p>
-        </section>
+        <div class="line1">
+          <h2>Echo of Mobius is a place where people realize their wildest fantasies.</h2>
+        </div>
+        <div class="line2">
+          <h2>Artificial Intelligence / User-Generated Content / Role-Playing Game</h2>
+        </div>
+        <div class="line3">
+          <h2>Conceptual PV - "Dragon? Nah, We Got Bros"</h2>
+        </div>
+        <div class="youtube-embed">
+          <iframe 
+            src="https://www.youtube.com/embed/VIDEO_ID" 
+            title="Conceptual PV - Dragon? Nah, We Got Bros" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="line2">
+          <h2>Character Customization / CRPG Adventure / Turn-based Battle</h2>
+        </div>
+        <div class="line3">
+          <h2>Gameplay PV - "Ah, the Chaotic World"</h2>
+        </div>
+        <div class="youtube-embed">
+          <iframe 
+            src="https://www.youtube.com/embed/VIDEO_ID" 
+            title="Gameplay PV - Ah, the Chaotic World" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="line2">
+          <h2>Contact: admin@dreamin.land</h2>
+        </div>
       </div>
     </div>
   </body>
