@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Echo of Mobius</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.png" type="image/png">
+    <script>
+      window.onload = function() {
+        var video = document.querySelector('video');
+        video.playbackRate = 0.8; 
+      };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+      /* Apply box-sizing globally for consistency */
+      *, *::before, *::after {
+        box-sizing: border-box;
+      }
+
+      /* Prevent overscrolling */
+      html, body {
+        margin: 0;
+        padding: 0;
+        background-color: black;
+        overflow-x: hidden;
+        overscroll-behavior-y: none; /* Prevent overscroll on Y-axis */
+        scroll-behavior: smooth; /* Optional: Smooth scrolling */
+      }
+
+      /* Fixed Overlay */
+      #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.2); 
+        pointer-events: none; /* Allows clicks to pass through */
+        z-index: 900;
+      }
+
+      /* Centered Logo Image */
+      .centered-image {
+        width: 100vw;       /* 80% of viewport width */
+        position: fixed;
+        top: -10vh;         /* Slight adjustment for top alignment */
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+      }
+
+      /* Image Containers for Demo and Steam Links */
+      .image-container {
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 30vw; /* 30% of viewport width */
+        z-index: 1000;
+      }
+
+      /* Positioning for each image container */
+      /* .image-container.demo {
+        top: 58vh;
+      } */
+      .image-container.demo {
+        top: 68vh;
+      }
+
+      .image-container.steam {
+        top: 71vh;
+      }
+
+      .image-container.x {
+        bottom: 10vh;
+        width: 2.5vw;
+        transform: translateX(calc(-50% - 2vw));
+      }
+
+      .image-container.tt {
+        bottom: 10vh;
+        width: 2.5vw;
+        transform: translateX(calc(-50% + 2vw));
+      }
+      
+      .image-container.rd {
+        bottom: 10vh;
+        width: 2.5vw;
+        transform: translateX(calc(-50% + 6vw));
+      }
+
+      .image-container.dc {
+        bottom: 10vh;
+        width: 2.5vw;
+        transform: translateX(calc(-50% - 6vw));
+      }
+
+      .youtube-embed {
+        position: relative;
+        width: 60%; /* Set the desired width (e.g., 60% of the parent container) */
+        margin: 2em auto; /* Centers the embed horizontally and adds vertical spacing */
+        padding-bottom: 33.75%; /* Adjusted Aspect Ratio for smaller size (16:9 * 0.6 = ~9:5) */
+        height: 0;
+      }
+
+      .youtube-embed iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+
+      /* Images within Containers */
+      .image-container img {
+        width: 100%;
+        display: block;
+        transition: opacity 0.5s ease-in-out;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      /* Hide the hover image initially */
+      .image-container img.hover {
+        opacity: 0;
+      }
+
+      /* On hover, fade in the hover image */
+      .image-container:hover img.hover {
+        opacity: 1;
+      }
+
+      /* Fixed Background Video */
+      .centered-video {
+        position: fixed; /* Fixed positioning */
+        top: 0;
+        left: 0;
+        width: 100vw; /* 100% of viewport width */
+        height: 100vh; /* 100% of viewport height */
+        object-fit: cover; /* Cover the screen while maintaining aspect ratio */
+        z-index: 800; /* Behind other content */
+      }
+
+      /* Canvas Element */
+      canvas {
+        animation: fadeIn 15s ease-in-out forwards;
+        position: fixed !important; /* Ensure canvas stays fixed */
+        z-index: 1 !important; /* Lower than other elements */
+        background-color: black;
+      }
+
+      .youtube-embed::before,
+      .youtube-embed::after {
+        content: "";
+        position: absolute;
+        top: 25%;
+        width: 1px; /* Thickness of the lines */
+        height: 50%; /* Full height of the container */
+        background-color: white; /* Color of the lines */
+      }
+
+      /* Position the left line */
+      .youtube-embed::before {
+        left: -10px; /* Adjust the horizontal position as needed */
+      }
+
+      /* Position the right line */
+      .youtube-embed::after {
+        right: -10px; /* Adjust the horizontal position as needed */
+      }
+
+      /* Responsive Design for Portrait Screens */
+      @media only screen and (orientation: portrait) {
+        .centered-image {
+          width: 160vw;       /* Adjust width for smaller screens */
+          top: 3vh;           /* Adjust top position */
+        }
+        .image-container {
+          width: 40vw; /* Increase width for better visibility */
+        }
+        .image-container.demo {
+          top: 60vh; /* Adjust positioning */
+          width: 70vw;
+        }
+        .image-container.steam {
+          top: 70vh; /* Adjust positioning */
+          width: 70vw;
+        }
+        .image-container.x {
+          width: 8vw;
+          transform: translateX(calc(-50% - 8vw));
+        }
+        .image-container.tt {
+          width: 8vw;
+          transform: translateX(calc(-50% + 8vw));
+        }
+        .image-container.rd {
+          width: 8vw;
+          transform: translateX(calc(-50% + 24vw));
+        }
+        .image-container.dc {
+          width: 8vw;
+          transform: translateX(calc(-50% - 24vw));
+        }
+      }
+
+      /* Responsive Adjustments for Smaller Widths */
+      @media only screen and (max-width: 768px) {
+        .centered-image {
+          width: 140vw;
+          top: 2vh;
+        }
+        .image-container {
+          width: 50vw;
+        }
+        /* .image-container.demo {
+          top: 55vh;
+          width: 80vw;
+        } */
+        .image-container.demo {
+          top: 62vh;
+          width: 80vw;
+        }
+        .image-container.steam {
+          top: 68vh;
+          width: 80vw;
+        }
+        .image-container.x {
+          width: 8vw;
+          transform: translateX(calc(-50% - 8vw));
+        }
+        .image-container.tt {
+          width: 8vw;
+          transform: translateX(calc(-50% + 8vw));
+        }
+        .image-container.rd {
+          width: 8vw;
+          transform: translateX(calc(-50% + 24vw));
+        }
+        .image-container.dc {
+          width: 8vw;
+          transform: translateX(calc(-50% - 24vw));
+        }
+      }
+
+      /* Optional: Adjust Overlay on Very Small Screens */
+      @media only screen and (max-width: 480px) {
+        #overlay {
+          background-color: rgba(0, 0, 0, 0.4); /* Slightly darker overlay */
+        }
+        .centered-image {
+          width: 180vw;
+          top: 10vh;
+        }
+        .image-container {
+          width: 60vw;
+        }
+        .image-container.demo {
+          top: 58vh;
+          width: 100vw;
+        }
+        .image-container.steam {
+          top: 68vh;
+          width: 100vw;
+        }
+        .image-container.x {
+          width: 10vw;
+          transform: translateX(calc(-50% - 8vw));
+        }
+        .image-container.tt {
+          width: 10vw;
+          transform: translateX(calc(-50% + 8vw));
+        }
+        .image-container.rd {
+          width: 10vw;
+          transform: translateX(calc(-50% + 24vw));
+        }
+        .image-container.dc {
+          width: 10vw;
+          transform: translateX(calc(-50% - 24vw));
+        }
+      }
+
+      /* Additional Content Container */
+      .additional-content-container {
+        position: relative;
+        z-index: 1001; /* Above overlay and fixed elements */
+        margin-top: 100vh; /* Push the content below the initial viewport */
+      }
+
+      /* Additional Content with Gradient Fade-In at Top */
+      .additional-content {
+        position: relative;
+        height: min-content;
+        padding: 20px;
+        color: white;
+        background: linear-gradient(
+          to bottom,
+          rgba(0,0,0, 0) 0%,   /* Transparent at top */
+          /* rgba(0,0,0, 0.64) 2.5%,
+          rgba(0,0,0, 0.8) 5%, */
+          rgb(0,0,0) 10%,  /* Opaque starting */
+          rgb(0,0,0) 100%  /* Solid color at bottom */
+        );
+      }
+
+      /* Remove any default margins from sections */
+      .additional-content h2,
+      .additional-content h3,
+      .additional-content p,
+      .additional-content section {
+        margin: 0 0 1em 0;
+      }
+
+      .line1 h2 {
+        margin-top: 40vh;
+        text-align: center;
+        font-family: 'Nunito', sans-serif;
+        font-weight: 300; /* Use 300 for a thin appearance */
+        letter-spacing: 0.1em; /* Adjust as needed for better readability */
+        /* Optional: Adjust line-height for better spacing */
+        line-height: 1.4;
+      }
+      .line2 h2 {
+        margin-top: 20vh;
+        font-size: medium;
+        text-align: center;
+        font-family: 'Nunito', sans-serif;
+        font-weight: 300; /* Use 300 for a thin appearance */
+        letter-spacing: 0.1em; /* Adjust as needed for better readability */
+        /* Optional: Adjust line-height for better spacing */
+        line-height: 1;
+      }
+      .line3 h2 {
+        margin-top: 10vh;
+        font-size: medium;
+        text-align: center;
+        font-family: 'Nunito', sans-serif;
+        font-weight: 300; /* Use 300 for a thin appearance */
+        letter-spacing: 0.1em; /* Adjust as needed for better readability */
+        /* Optional: Adjust line-height for better spacing */
+        line-height: 1;
+      }
+
+
+      /* Ensure body height matches content */
+      body {
+        min-height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Fixed Background Video -->
+    <video class="centered-video" autoplay loop muted>
+      <source src="final.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <!-- Fixed Overlay -->
+    <div id="overlay"></div>
+
+    <!-- Fixed Centered Logo Image -->
+    <img src="logo1.png" alt="Echo of Mobius" class="centered-image">
+
+    <!-- Fixed Image Containers with Clickable Links -->
+    <a href="http://game.dreamin.land" target="_blank">
+      <div class="image-container demo">
+        <img src="demo1.png" alt="Play Demo" class="default">
+        <img src="demo2.png" alt="Play Demo" class="hover">
+      </div>
+    </a>
+
+    <!-- <a href="https://store.steampowered.com/app/2974560/Echo_of_Mobius/" target="_blank">
+      <div class="image-container steam">
+        <img src="steam1.png" alt="Steam Page" class="default">
+        <img src="steam2.png" alt="Steam Page" class="hover">
+      </div>
+    </a> -->
+
+    <a href="https://x.com/echo_of_mobius" target="_blank">
+      <div class="image-container x">
+        <img src="x.png" alt="X" class="default">
+        <img src="x1.png" alt="X" class="hover">
+      </div>
+    </a>
+
+    <a href="https://discord.gg/AUNQUREjAS" target="_blank">
+      <div class="image-container dc">
+        <img src="dc.png" alt="Discord" class="default">
+        <img src="dc1.png" alt="Discord" class="hover">
+      </div>
+    </a>
+
+    <a href="https://discord.gg/dream-n-946157864672690207" target="_blank">
+      <div class="image-container rd">
+        <!-- <img src="rd.png" alt="Reddit" class="default">
+        <img src="rd1.png" alt="Reddit" class="hover"> -->
+        <img src="dc.png" alt="Discord" class="default">
+        <img src="dc1.png" alt="Discord" class="hover">
+      </div>
+    </a>
+
+    <a href="https://www.youtube.com/@EchoOfMobius" target="_blank">
+      <div class="image-container tt">
+        <img src="tt.png" alt="Tiktok" class="default">
+        <img src="tt1.png" alt="Tiktok" class="hover">
+      </div>
+    </a>
+    
+
+    
+
+    <!-- Additional Content Container with Fade-In Top Edge -->
+    <div class="additional-content-container">
+      <div class="additional-content">
+        <div class="line1">
+          <h2>Echo of Mobius is a place where people realize their wildest fantasies.</h2>
+        </div>
+        <div class="line2">
+          <h2>Artificial Intelligence / User-Generated Content / Role-Playing Game</h2>
+        </div>
+        <div class="line3">
+          <h2>Conceptual PV - "Dragon? Nah, We Got Bros"</h2>
+        </div>
+        <div class="youtube-embed">
+          <iframe 
+            src="https://www.youtube.com/embed/wLbJvtnXuRM?si=4SrTmXp4B6RnPfxg" 
+            title="Conceptual PV - Dragon? Nah, We Got Bros" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="line2">
+          <h2>Character Customization / CRPG Adventure / Turn-based Battle</h2>
+        </div>
+        <div class="line3">
+          <h2>Gameplay PV - "Ah, the Chaotic World"</h2>
+        </div>
+        <div class="youtube-embed">
+          <iframe 
+            src="https://www.youtube.com/embed/1SqF-2pH-eU?si=Nvy8TzN483609sUK" 
+            title="Gameplay PV - Ah, the Chaotic World" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="line2">
+          <h2>Echo of Mobius grows limitlessly with your imagination.</h2>
+          <h2 style="margin-top: 5vh;">Contact: admin@dreamin.land</h2>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
