@@ -13,9 +13,11 @@
     
     <header class="header">
         <img src="files/topbar.png" alt="Header Background" class="header-bg-image">
-        <img src="files/topbar.png" alt="Header Background" class="header-logo-bg-image">
+        <!-- <img src="files/topbar.png" alt="Header Background" class="header-logo-bg-image"> -->
         <nav>
-            <img src="files/logo.png" alt="Logo" class="logo"> <!-- Logo on the left -->
+            <!-- <img src="files/logo.png" alt="Logo" class="logo"> -->
+            <img src="files/large-logo.png" alt="Large Logo" class="logo large-logo">
+            <img src="files/logo.png" alt="Small Logo" class="logo small-logo">
             <ul class="nav-links">
                 <li><a href="#overview">Overview</a></li>
                 <li><a href="#playing-modes">Playing Modes</a></li>
@@ -40,9 +42,9 @@
             </video>
             <div class="overlay"></div> <!-- Transparent black overlay -->
             
-            <div class="logo-center">
+            <!-- <div class="logo-center">
                 <img src="files/large-logo.png" alt="Logo" class="large-logo">
-            </div>
+            </div> -->
             
             <!-- Slogan Text -->
             <div class="slogan">
@@ -128,5 +130,17 @@
       const video = document.querySelector(".background-video");
       video.playbackRate = 0.7; // Set playback speed to 0.5
   });
+  // JavaScript to toggle logos on scroll
+  window.addEventListener('scroll', () => {
+      const header = document.querySelector('.header');
+      const scrollPosition = window.scrollY;
+
+      if (scrollPosition > 100) { // Change '100' to adjust when the logo switches
+          header.classList.add('scrolled');
+      } else {
+          header.classList.remove('scrolled');
+      }
+  });
+
 </script>
 </html>
