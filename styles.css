@@ -235,7 +235,7 @@ p, a, li {
 } */
 
 .large-logo {
-    height: 100px; /* Larger size */
+    width: 23vw; /* Larger size */
     opacity: 1;
     left: 30px; 
     top: 20px;
