@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirect to Localhost</title>
+</head>
+<body>
+    <h1>Authenticating, please wait...</h1>
+
+    <script>
+        // Capture the hash part of the URL
+        const hash = window.location.hash;
+
+        // Extract access_token from the hash
+        const params = new URLSearchParams(hash.slice(1));
+        const accessToken = params.get('access_token');
+
+        if (accessToken) {
+            // Redirect to local server with access_token as a query parameter
+            window.location.href = `http://127.0.0.1:34567/?access_token=${accessToken}`;
+        } else {
+            // Display an error message if access_token was not retrieved
+            document.body.innerHTML = "<h1>Failed to retrieve access token. Please try again.</h1>";
+        }
+    </script>
+</body>
+</html>
