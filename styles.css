@@ -674,3 +674,10 @@ p, a, li {
 .contact-form button:hover {
     background-color: #b38a6e;
 }
+
+.form-message {
+    margin-top: 10px;
+    color: #4CAF50; /* Green for success */
+    font-size: 1em;
+    font-family: 'Roboto', sans-serif;
+}
