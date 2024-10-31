@@ -22,7 +22,7 @@
                 <li><a href="#overview">Overview</a></li>
                 <li><a href="#gameplay-section">Gameplay</a></li>
                 <li><a href="#influencer-section">Community</a></li>
-                <li><a href="#social-media">Social Media</a></li>
+                <li><a href="#social-media-section">Social Media</a></li>
                 <li>
                     <a href="https://echo-of-mobius.itch.io/play" target="_blank">
                         <img src="files/buynow.png" alt="Buy Now" class="buy-now-image">
@@ -193,8 +193,31 @@
             </div>
         </section>
         
-        <img src="files/line.png" alt="Section Divider" class="section-divider">
+        <img src="files/line.png" alt="Section Divider" class="section-divider" id="social-media-section" >
         
+        <section class="social-media-section">
+            <h2 class="section-title">Connect with Us</h2>
+            <p class="section-subtitle">Stay updated on our latest news and adventures</p>
+        
+            <form action="contact-script.php" method="POST" class="contact-form">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+
+            <div class="social-icons">
+                <a href="https://x.com/echo_of_mobius" target="_blank">
+                    <img src="files/x.png" alt="X Icon">
+                </a>
+                <a href="https://discord.gg/AUNQUREjAS" target="_blank">
+                    <img src="files/dc.png" alt="Discord Icon">
+                </a>
+                <a href="https://www.youtube.com/@EchoOfMobius" target="_blank">
+                    <img src="files/yt.png" alt="YouTube Icon">
+                </a>
+            </div>
+        </section>
         
         
     </main>
