@@ -22,7 +22,7 @@
                 <li><a href="#overview">Overview</a></li>
                 <li><a href="#gameplay-section">Gameplay</a></li>
                 <li><a href="#influencer-section">Community</a></li>
-                <li><a href="#social-media-section">Social Media</a></li>
+                <li><a href="#social-media-section">Contact</a></li>
                 <li>
                     <a href="https://echo-of-mobius.itch.io/play" target="_blank">
                         <img src="files/buynow.png" alt="Buy Now" class="buy-now-image">
@@ -169,30 +169,55 @@
             
             <div class="video-grid">
                 <!-- Larger videos -->
-                <div class="video-item large-video">
-                    <iframe src="https://www.youtube.com/embed/dn2onwm6soE?si=95B6fC6EZOcET9cU" frameborder="0" allowfullscreen></iframe>
+                <div class="video-item large-video" data-video="https://www.youtube.com/embed/dn2onwm6soE?autoplay=1">
+                    <div class="overlay-vidcard">
+                        <img src="files/v1.jpg" alt="Video Cover" class="video-cover">
+                        <img src="files/play-button.png" alt="Play Button" class="play-button">
+                    </div>
                 </div>
-                <div class="video-item large-video">
-                    <iframe src="https://player.twitch.tv/?video=2280519927&time=1h9m55s&parent=echo.dreamin.land&parent=www.dreamin.land&parent=www.echoofmobius.com&autoplay=false&muted=false" frameborder="0" allowfullscreen></iframe>
+                <div class="video-item large-video" data-video="https://player.twitch.tv/?video=2280519927&time=1h9m55s&parent=echo.dreamin.land&parent=www.dreamin.land&parent=www.echoofmobius.com&autoplay=true">
+                    <div class="overlay-vidcard">
+                        <img src="files/v2.jpg" alt="Video Cover" class="video-cover">
+                        <img src="files/play-button.png" alt="Play Button" class="play-button">
+                    </div>
                 </div>
             </div>
             <div class="video-grid-small">
                 <!-- Smaller videos -->
-                <div class="video-item small-video">
-                    <iframe src="https://player.twitch.tv/?video=2279530768&time=2h15m28s&parent=echo.dreamin.land&parent=www.dreamin.land&parent=www.echoofmobius.com&autoplay=false&muted=false" frameborder="0" allowfullscreen></iframe>
+                <div class="video-item small-video" data-video="https://player.twitch.tv/?video=2279530768&time=2h15m28s&parent=echo.dreamin.land&parent=www.dreamin.land&parent=www.echoofmobius.com&autoplay=true">
+                    <div class="overlay-vidcard">
+                        <img src="files/v3.jpg" alt="Video Cover" class="video-cover">
+                        <img src="files/play-button.png" alt="Play Button" class="play-button">
+                    </div>
                 </div>
-                <div class="video-item small-video">
-                    <iframe src="https://player.twitch.tv/?video=2276174850&time=0h38m45s&parent=echo.dreamin.land&parent=www.dreamin.land&parent=www.echoofmobius.com&autoplay=false&muted=false" frameborder="0" allowfullscreen></iframe>
+                <div class="video-item small-video" data-video="https://player.twitch.tv/?video=2276174850&time=0h38m45s&parent=echo.dreamin.land&parent=www.dreamin.land&parent=www.echoofmobius.com&autoplay=true">
+                    <div class="overlay-vidcard">
+                        <img src="files/v4.png" alt="Video Cover" class="video-cover">
+                        <img src="files/play-button.png" alt="Play Button" class="play-button">
+                    </div>
                 </div>
-                <div class="video-item small-video">
-                    <iframe src="https://player.twitch.tv/?video=2280418921&time=2h17m6s&parent=echo.dreamin.land&parent=www.dreamin.land&parent=www.echoofmobius.com&autoplay=false&muted=false" frameborder="0" allowfullscreen></iframe>
+                <div class="video-item small-video" data-video="https://www.youtube.com/embed/ywR6L4R6diY?start=4254">
+                    <div class="overlay-vidcard">
+                        <img src="files/v5.jpg" alt="Video Cover" class="video-cover">
+                        <img src="files/play-button.png" alt="Play Button" class="play-button">
+                    </div>
                 </div>
-                <div class="video-item small-video">
-                    <iframe src="https://player.twitch.tv/?video=2280598781&time=1h50m47s&parent=echo.dreamin.land&parent=www.dreamin.land&parent=www.echoofmobius.com&autoplay=false&muted=false" frameborder="0" allowfullscreen></iframe>
+                <div class="video-item small-video" data-video="https://player.twitch.tv/?video=2280598781&time=1h50m47s&parent=echo.dreamin.land&parent=www.dreamin.land&parent=www.echoofmobius.com&autoplay=true">
+                    <div class="overlay-vidcard">
+                        <img src="files/v6.png" alt="Video Cover" class="video-cover">
+                        <img src="files/play-button.png" alt="Play Button" class="play-button">
+                    </div>
                 </div>
             </div>
         </section>
         
+        <div class="video-overlay" id="videoOverlay">
+            <button class="close-button" onclick="closeOverlay()">✕</button>
+            <div class="overlay-content">
+                <iframe id="overlayVideo" src="" frameborder="0" allowfullscreen autoplay></iframe>
+            </div>
+        </div>
+
         <img src="files/line.png" alt="Section Divider" class="section-divider" id="social-media-section" >
         
         <section class="social-media-section">
@@ -224,48 +249,63 @@
     </main>
 
     <footer class="footer">
-        <p>© Studio D. All rights reserved.</p>
+        <p>© Copyright 2024 Studio D. All rights reserved.</p>
     </footer>
 
     <script src="script.js"></script>
 </body>
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-      const video = document.querySelector(".background-video");
-      video.playbackRate = 0.7; // Set playback speed to 0.5
-  });
-  // JavaScript to toggle logos on scroll
-  window.addEventListener('scroll', () => {
-      const header = document.querySelector('.header');
-      const scrollPosition = window.scrollY;
+    document.addEventListener("DOMContentLoaded", function() {
+        const video = document.querySelector(".background-video");
+        video.playbackRate = 0.7; // Set playback speed to 0.5
+    });
+    // JavaScript to toggle logos on scroll
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('.header');
+        const scrollPosition = window.scrollY;
 
-      if (scrollPosition > 100) { // Change '100' to adjust when the logo switches
-          header.classList.add('scrolled');
-      } else {
-          header.classList.remove('scrolled');
-      }
-  });
-  document.getElementById("contact-form").addEventListener("submit", async function(event) {
-    event.preventDefault(); // Prevent form from submitting the traditional way
-    const form = event.target;
-    const formData = new FormData(form);
-
-    try {
-        const response = await fetch(form.action, {
-            method: form.method,
-            body: formData
-        });
-
-        if (response.ok) {
-            document.getElementById("submit-btn").textContent = "Message Sent!";
-            document.getElementById("submit-btn").disabled = true;
-            document.getElementById("form-message").textContent = "Thank you for contacting us!";
+        if (scrollPosition > 100) { // Change '100' to adjust when the logo switches
+            header.classList.add('scrolled');
         } else {
-            document.getElementById("form-message").textContent = "Error sending message. Please try again.";
+            header.classList.remove('scrolled');
         }
-    } catch (error) {
-        document.getElementById("form-message").textContent = "Error connecting to server.";
+    });
+    document.getElementById("contact-form").addEventListener("submit", async function(event) {
+        event.preventDefault(); // Prevent form from submitting the traditional way
+        const form = event.target;
+        const formData = new FormData(form);
+
+        try {
+            const response = await fetch(form.action, {
+                method: form.method,
+                body: formData
+            });
+
+            if (response.ok) {
+                document.getElementById("submit-btn").textContent = "Message Sent!";
+                document.getElementById("submit-btn").disabled = true;
+                document.getElementById("form-message").textContent = "Thank you for contacting us!";
+            } else {
+                document.getElementById("form-message").textContent = "Error sending message. Please try again.";
+            }
+        } catch (error) {
+            document.getElementById("form-message").textContent = "Error connecting to server.";
+        }
+    });
+    // Open overlay with video
+    document.querySelectorAll('.video-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const videoSrc = this.getAttribute('data-video');
+            document.getElementById('overlayVideo').src = videoSrc;
+            document.getElementById('videoOverlay').style.display = 'flex';
+        });
+    });
+
+    // Close overlay
+    function closeOverlay() {
+        document.getElementById('overlayVideo').src = ''; // Clear the src to stop playback
+        document.getElementById('videoOverlay').style.display = 'none';
     }
-});
+
 </script>
 </html>

@@ -156,6 +156,7 @@ p, a, li {
     text-align: center;
     padding: 20px;
     background: rgba(0, 0, 0, 0.7);
+    font-size: smaller;
 }
 
 /* Logo styling */
@@ -598,6 +599,54 @@ p, a, li {
     border-radius: 8px; /* Optional: add rounded corners */
 }
 
+.video-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px; /* Adds rounded corners */
+}
+
+/* Dark Overlay */
+.overlay-vidcard {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black; /* Dark overlay */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease; /* Smooth transition */
+    border-radius: 8px;
+}
+
+.video-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 8px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.video-item:hover .video-cover {
+    opacity: 0.6; /* Darker overlay on hover */
+}
+
+/* Play Button Styling */
+.play-button {
+    position: absolute;
+    width: 20%; /* Adjust size as needed */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.video-item:hover .play-button {
+    opacity: 1; /* Show play button on hover */
+}
+
 .social-media-section {
     padding: 60px 20px;
     text-align: center;
@@ -680,4 +729,50 @@ p, a, li {
     color: #4CAF50; /* Green for success */
     font-size: 1em;
     font-family: 'Roboto', sans-serif;
+}
+
+/* Fullscreen video overlay */
+/* Fullscreen video overlay */
+.video-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Overlay content */
+.overlay-content {
+    position: relative;
+    width: 80vw;
+    aspect-ratio: 16 / 9;
+}
+
+#overlayVideo {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+/* Close button styling */
+.close-button {
+    position: fixed; /* Positioned in the viewport’s top right */
+    top: 20px;
+    right: 50px;
+    background: none; /* No background for a minimalist style */
+    color: white; /* Match main accent color */
+    font-size: 2em;
+    border: none;
+    cursor: pointer;
+    z-index: 101; /* Ensure it stays on top */
+    transition: color 0.3s;
+}
+
+.close-button:hover {
+    color: #b38a6e; /* Slight color change on hover */
 }
