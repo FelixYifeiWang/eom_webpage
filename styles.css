@@ -776,3 +776,38 @@ p, a, li {
 .close-button:hover {
     color: #b38a6e; /* Slight color change on hover */
 }
+
+#character-display {
+    padding: 60px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.character-scene {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: relative;
+    height: 600px;
+    width: 100%;
+    overflow: hidden;
+    margin-top: -20px;
+}
+
+/* Base style for characters */
+.character {
+    position: absolute;
+    bottom: 0;
+    opacity: 0;
+    transform-origin: center bottom;
+    animation: fadeInCharacter 1s ease forwards;
+}
+
+/* Fade-in animation */
+@keyframes fadeInCharacter {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+

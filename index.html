@@ -17,9 +17,11 @@
         <nav>
             <!-- <img src="files/logo.png" alt="Logo" class="logo"> -->
             <img src="files/large-logo.png" alt="Large Logo" class="logo large-logo">
-            <img src="files/logo.png" alt="Small Logo" class="logo small-logo">
+            <a href="#overview">
+                <img src="files/logo.png" alt="Small Logo" class="logo small-logo">
+            </a>
             <ul class="nav-links">
-                <li><a href="#overview">Overview</a></li>
+                <li><a href="#display-section">Companions</a></li>
                 <li><a href="#gameplay-section">Gameplay</a></li>
                 <li><a href="#influencer-section">Community</a></li>
                 <li><a href="#social-media-section">Contact</a></li>
@@ -82,6 +84,19 @@
           
         </section>
         <!-- <p class="temp-notice">In dev, coming soon...</p> -->
+
+        <img src="files/line.png" alt="Section Divider" class="section-divider" id="display-section">
+
+        <section id="character-display">
+            <div class="section-header">
+                <h2 class="section-title">Companion Showcase</h2>
+                <p class="section-subtitle" id="character-count">
+                    Meet <span id="character-number">30000</span> characters crafted by our community.
+                </p>
+            </div>
+            <div class="character-scene">
+            </div>
+        </section>      
 
         <img src="files/line.png" alt="Section Divider" class="section-divider" id="gameplay-section">
 
@@ -306,6 +321,282 @@
         document.getElementById('overlayVideo').src = ''; // Clear the src to stop playback
         document.getElementById('videoOverlay').style.display = 'none';
     }
+
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Full list of images
+        const imageList = [
+            "123.png",
+            "123123123.png",
+            "12321.png",
+            "123213.png",
+            "12332.png",
+            "1234.png",
+            "124.png",
+            "132114.png",
+            "13432.png",
+            "213.png",
+            "21312.png",
+            "2213.png",
+            "22222222.png",
+            "231.png",
+            "231223.png",
+            "23123.png",
+            "231232.png",
+            "231241.png",
+            "2321.png",
+            "23212.png",
+            "232123.png",
+            "2321322.png",
+            "3.png",
+            "3121.png",
+            "312123.png",
+            "3123.png",
+            "3123123.png",
+            "3123132.png",
+            "3212.png",
+            "321232.png",
+            "3231.png",
+            "323123.png",
+            "33.png"
+        ];
+        
+        // Number of characters to display
+        const numCharacters = 5;
+        
+        // Animation settings
+        const animationDuration = 2; // Duration of the fade-in/out animation in seconds (slower)
+        const animationInterval = 1.5; // Time interval between character fade-ins (slower)
+        const totalInitialAnimationTime = (numCharacters - 1) * animationInterval + animationDuration;
+
+        // Spread setting
+        const spread = 60; // Characters will be spread across ±30% from the center (wider spread)
+
+        // Function to select random images
+        function selectRandomImages(excludeList = []) {
+            const availableImages = imageList.filter(img => !excludeList.includes(img));
+            const selectedImages = [];
+            const imageListCopy = [...availableImages]; // Copy the list to avoid modifying the original
+            for (let i = 0; i < numCharacters; i++) {
+                if (imageListCopy.length === 0) break; // In case there are not enough images left
+                const randomIndex = Math.floor(Math.random() * imageListCopy.length);
+                selectedImages.push(imageListCopy.splice(randomIndex, 1)[0]);
+            }
+            return selectedImages;
+        }
+        
+        // Function to create and display characters
+        function displayCharacters(selectedImages) {
+            // Get the character scene container
+            const characterScene = document.querySelector(".character-scene");
+            characterScene.innerHTML = ''; // Clear any existing images
+            
+            // Create img elements for the selected images
+            selectedImages.forEach((imageName, index) => {
+                const img = document.createElement('img');
+                img.src = `characters/${imageName}`;
+                img.alt = `Character ${index + 1}`;
+                img.classList.add('character');
+                characterScene.appendChild(img);
+            });
+            
+            // Proceed with positioning and animating the characters
+            positionAndAnimateCharacters();
+        }
+        
+        // Function to position and animate characters
+        function positionAndAnimateCharacters() {
+            const characters = document.querySelectorAll(".character");
+            const totalCharacters = characters.length;
+            const centerPosition = 50; // Center position in percent
+        
+            // Generate staggered animation delays and shuffle them for a different sequence
+            let delays = [];
+            for (let i = 0; i < totalCharacters; i++) {
+                delays.push(i * animationInterval); // Adjusted time interval
+            }
+            delays.sort(() => Math.random() - 0.5); // Shuffle the delays
+        
+            // Create an array to hold character data for sorting
+            let characterData = [];
+        
+            // First, calculate positions and collect character data
+            characters.forEach((character, index) => {
+                // Compute the horizontal position to spread characters more widely
+                let position;
+                if (totalCharacters === 1) {
+                    position = centerPosition;
+                } else {
+                    position = centerPosition - (spread / 2) + (index * spread / (totalCharacters - 1));
+                }
+        
+                // Calculate the distance from the center for z-index calculation
+                const distanceFromCenter = Math.abs(position - centerPosition);
+        
+                // Collect character data
+                characterData.push({
+                    element: character,
+                    index: index,
+                    position: position,
+                    distanceFromCenter: distanceFromCenter,
+                });
+            });
+        
+            // Sort characters so that more centered ones have higher z-index
+            characterData.sort((a, b) => a.distanceFromCenter - b.distanceFromCenter);
+        
+            // Apply styles to each character
+            characterData.forEach((data, sortedIndex) => {
+                const { element: character, index, position, distanceFromCenter } = data;
+        
+                // Set the horizontal position
+                character.style.left = `${position}%`;
+        
+                // Center the character horizontally
+                character.style.transform = 'translateX(-50%)';
+        
+                // Determine size based on filename
+                const fileName = character.src.split('/').pop();
+                const sizeClass = fileName.charAt(0);
+        
+                // Set the scale based on sizeClass
+                let scale;
+                if (sizeClass === '1') scale = 0.3;
+                else if (sizeClass === '2') scale = 0.4;
+                else if (sizeClass === '3') scale = 0.5;
+                else scale = 0.4; // Default scale if sizeClass is not 1, 2, or 3
+        
+                // Apply scale and random horizontal flip
+                const flip = Math.random() < 0.5 ? -1 : 1;
+                character.style.transform += ` scale(${flip * scale}, ${scale})`;
+        
+                // Apply a random animation delay from the shuffled delays
+                character.style.animationDelay = `${delays[index]}s`;
+        
+                // Set z-index so that more centered characters are on top
+                const zIndex = 1000 - Math.round(distanceFromCenter * 10);
+                character.style.zIndex = zIndex;
+        
+                // Set the animation duration (slower)
+                character.style.animationDuration = `${animationDuration}s`;
+            });
+        }
+        
+        // Initial display of characters
+        const initialSelectedImages = selectRandomImages();
+        displayCharacters(initialSelectedImages);
+        
+        // After the initial animations, start replacing characters
+        setTimeout(() => {
+            // Start the replacement loop
+            let replaceIndex = 0; // Index of the character to replace
+            setInterval(() => {
+                replaceCharacter(replaceIndex);
+                replaceIndex = (replaceIndex + 1) % numCharacters; // Loop back to 0 after reaching the end
+            }, animationInterval * 1000);
+        }, totalInitialAnimationTime * 1000);
+        
+        // Function to replace a character
+        function replaceCharacter(index) {
+            const characters = document.querySelectorAll(".character");
+            const characterToReplace = characters[index];
+            const currentImages = Array.from(characters).map(char => char.src.split('/').pop());
+            const newImageList = imageList.filter(img => !currentImages.includes(img));
+            
+            if (newImageList.length === 0) return; // No new images to replace with
+            
+            // Select a new image
+            const randomIndex = Math.floor(Math.random() * newImageList.length);
+            const newImageName = newImageList[randomIndex];
+            
+            // Create a new img element
+            const newCharacter = document.createElement('img');
+            newCharacter.src = `characters/${newImageName}`;
+            newCharacter.alt = `Character ${index + 1}`;
+            newCharacter.classList.add('character');
+            newCharacter.style.opacity = '0'; // Start invisible
+            newCharacter.style.position = 'absolute';
+            newCharacter.style.bottom = '0';
+            
+            // Fade out the old character and remove it
+            characterToReplace.style.transition = `opacity ${animationDuration}s`;
+            characterToReplace.style.opacity = '0';
+            setTimeout(() => {
+                characterToReplace.parentNode.removeChild(characterToReplace);
+            }, animationDuration * 1000);
+
+            // Append the new character to the scene
+            characterToReplace.parentNode.appendChild(newCharacter);
+            
+            // Position and animate the new character
+            positionAndAnimateNewCharacter(newCharacter, index);
+            
+        }
+        
+        // Function to position and animate the new character
+        function positionAndAnimateNewCharacter(character, index) {
+            const totalCharacters = numCharacters;
+            const centerPosition = 50; // Center position in percent
+        
+            // Compute the horizontal position
+            let position;
+            if (totalCharacters === 1) {
+                position = centerPosition;
+            } else {
+                position = centerPosition - (spread / 2) + (index * spread / (totalCharacters - 1));
+            }
+            character.style.left = `${position}%`;
+        
+            // Center the character horizontally
+            character.style.transform = 'translateX(-50%)';
+        
+            // Determine size based on filename
+            const fileName = character.src.split('/').pop();
+            const sizeClass = fileName.charAt(0);
+        
+            // Set the scale based on sizeClass
+            let scale;
+            if (sizeClass === '1') scale = 0.3;
+            else if (sizeClass === '2') scale = 0.4;
+            else if (sizeClass === '3') scale = 0.5;
+            else scale = 0.4; // Default scale if sizeClass is not 1, 2, or 3
+        
+            // Apply scale and random horizontal flip
+            const flip = Math.random() < 0.5 ? -1 : 1;
+            character.style.transform += ` scale(${flip * scale}, ${scale})`;
+        
+            // Set z-index based on distance from center
+            const distanceFromCenter = Math.abs(position - centerPosition);
+            const zIndex = 1000 - Math.round(distanceFromCenter * 10);
+            character.style.zIndex = zIndex;
+        
+            // Set the animation duration for fade-in
+            character.style.transition = `opacity ${animationDuration}s`;
+            setTimeout(() => {
+                character.style.opacity = '1';
+            }, 50); // Slight delay to ensure the transition occurs
+        }
+    });
+
+    const startDate = new Date("2024-10-15T00:00:00Z").getTime();
+    const baseCount = 25000; // Starting count
+    const incrementInterval = 240 * 1000; 
+
+    function updateCharacterCount() {
+        const now = Date.now();
+        const elapsed = now - startDate;
+        const increments = Math.floor(elapsed / incrementInterval);
+        const currentCount = baseCount + increments;
+
+        document.getElementById("character-number").textContent = currentCount.toLocaleString();
+    }
+
+    // Update count on page load
+    updateCharacterCount();
+
+    // Update the count every 90 seconds
+    setInterval(updateCharacterCount, incrementInterval);
 
 </script>
 </html>
