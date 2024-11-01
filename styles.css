@@ -122,7 +122,7 @@ p, a, li {
 }
 
 .section {
-    padding: 60px 20px;
+    padding: 40px 20px;
     background: rgba(0, 0, 0, 0.5);
     margin-bottom: 20px;
     border-radius: 10px;
@@ -391,7 +391,7 @@ p, a, li {
 
 /* Gameplay Section Styling */
 .gameplay-section {
-    padding: 60px 20px;
+    padding: 40px 20px;
     text-align: center;
     color: #C3A27E;
 }
@@ -554,7 +554,7 @@ p, a, li {
 
 
 .influencer-section {
-    padding: 60px 20px;
+    padding: 40px 20px;
     text-align: center;
 }
 
@@ -648,7 +648,7 @@ p, a, li {
 }
 
 .social-media-section {
-    padding: 60px 20px;
+    padding: 40px 20px;
     text-align: center;
 }
 
@@ -778,7 +778,7 @@ p, a, li {
 }
 
 #character-display {
-    padding: 60px 0;
+    padding: 40px 0;
     text-align: center;
     position: relative;
     overflow: hidden;
