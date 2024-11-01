@@ -9,13 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="background"></div> <!-- Fixed background -->
+    <div class="background"></div> 
     
     <header class="header">
         <img src="files/topbar.png" alt="Header Background" class="header-bg-image">
-        <!-- <img src="files/topbar.png" alt="Header Background" class="header-logo-bg-image"> -->
         <nav>
-            <!-- <img src="files/logo.png" alt="Logo" class="logo"> -->
             <img src="files/large-logo.png" alt="Large Logo" class="logo large-logo">
             <a href="#overview">
                 <img src="files/logo.png" alt="Small Logo" class="logo small-logo">
@@ -30,7 +28,6 @@
                         <img src="files/buynow.png" alt="Buy Now" class="buy-now-image">
                     </a>
                 </li>
-                <!-- <li><a href="https://echo-of-mobius.itch.io/play" class="buy-now-button">Buy Now</a></li>  -->
             </ul>
         </nav>
     </header>
@@ -38,26 +35,17 @@
 
     <main class="content">
         <section id="overview" class="section full-screen">
-            <video autoplay loop muted playsinline class="background-video">
+            <video autoplay loop muted playsinline class="background-video fade-in">
                 <source src="files/bg.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
-            <div class="overlay"></div> <!-- Transparent black overlay -->
-            
-            <!-- <div class="logo-center">
-                <img src="files/large-logo.png" alt="Logo" class="large-logo">
-            </div> -->
-            
-            <!-- Slogan Text -->
-            <div class="slogan">
+            <div class="overlay"></div>
+
+            <div class="slogan slide-in">
                 meet people's wildest dreams
             </div>
             
-            <!-- <div class="button-group">
-                <a href="http://game.dreamin.land/" target="_blank" class="cta-button">Web Demo</a>
-                <a href="https://echo-of-mobius.itch.io/play" class="cta-button buy-now">Buy Now</a>
-            </div> -->
-            <div class="button-group">
+            <div class="button-group slide-in" >
                 <a href="http://game.dreamin.land/" target="_blank">
                     <img src="files/wd.png" alt="Web Demo" class="cta-image">
                 </a>
@@ -69,32 +57,29 @@
             
             <div class="corner-icons">
                 <div class="icon-section">
-                    <p class="icon-label">Available Now</p>
-                    <img src="files/windows-badge.png" alt="Available on Windows" class="corner-icon">
-                    <img src="files/macos-badge.png" alt="Available on Mac" class="corner-icon">
-                    <img src="files/itch-badge.png" alt="Available on Itch.io" class="corner-icon">
+                    <p class="icon-label slide-in">Available Now</p>
+                    <img src="files/windows-badge.png" alt="Available on Windows" class="corner-icon slide-in">
+                    <img src="files/macos-badge.png" alt="Available on Mac" class="corner-icon slide-in">
+                    <img src="files/itch-badge.png" alt="Available on Itch.io" class="corner-icon slide-in">
                 </div>
                 <div class="icon-section">
-                    <p class="icon-label">Coming Soon</p>
-                    <img src="files/appstore-badge.png" alt="Coming Soon on iOS" class="corner-icon">
-                    <img src="files/google-badge.png" alt="Coming Soon on Android" class="corner-icon">
+                    <p class="icon-label slide-in">Coming Soon</p>
+                    <img src="files/appstore-badge.png" alt="Coming Soon on iOS" class="corner-icon slide-in">
+                    <img src="files/google-badge.png" alt="Coming Soon on Android" class="corner-icon slide-in">
                 </div>
             </div>
-          
-          
         </section>
-        <!-- <p class="temp-notice">In dev, coming soon...</p> -->
 
         <img src="files/line.png" alt="Section Divider" class="section-divider" id="display-section">
 
         <section id="character-display">
-            <div class="section-header">
+            <div class="section-header slide-in">
                 <h2 class="section-title">Companion Showcase</h2>
-                <p class="section-subtitle" id="character-count">
+                <p class="section-subtitle slide-in" id="character-count">
                     Meet <span id="character-number" class="emphasized-number">30000</span> characters crafted by our community.
                 </p>
             </div>
-            <div class="character-scene">
+            <div class="character-scene slide-in">
             </div>
         </section>      
 
@@ -102,13 +87,12 @@
 
         <section class="gameplay-section">
             <div class="section-header">
-                <h2 class="section-title">Gameplay Modes</h2>
-                <p class="section-subtitle">Explore different ways to play and immerse yourself in unique adventures.</p>
+                <h2 class="section-title slide-in">Gameplay Modes</h2>
+                <p class="section-subtitle slide-in">Explore different ways to play and immerse yourself in unique adventures.</p>
             </div>
         
-            <!-- Gameplay Cards -->
             <div class="gameplay-cards">
-                <div class="card">
+                <div class="card slide-in">
                     <div class="card-content">
                         <div class="title-icon-container">
                             <img src="files/icon1.png" alt="Icon" class="card-icon">
@@ -125,7 +109,7 @@
                     </div>
                 </div>
             
-                <div class="card">
+                <div class="card slide-in">
                     <div class="card-content">
                         <div class="title-icon-container">
                             <img src="files/icon2.png" alt="Icon" class="card-icon">
@@ -142,7 +126,7 @@
                     </div>
                 </div>
             
-                <div class="card">
+                <div class="card slide-in">
                     <div class="card-content">
                         <div class="title-icon-container">
                             <img src="files/icon3.png" alt="Icon" class="card-icon">
@@ -160,7 +144,7 @@
                 </div>
             </div>
             
-            <div class="upcoming-section">
+            <div class="upcoming-section slide-in">
                 <h3 class="upcoming-title">More to Come...</h3>
                 <div class="upcoming-genres">
                     <span class="tag">Multiplayer</span>
@@ -178,12 +162,11 @@
 
         <section class="influencer-section">
             <div class="section-header">
-                <h2 class="section-title">Community Spotlight</h2>
-                <p class="section-subtitle">Watch popular streamers dive into this world and share their experiences.</p>
+                <h2 class="section-title slide-in">Community Spotlight</h2>
+                <p class="section-subtitle slide-in">Watch popular streamers dive into this world and share their experiences.</p>
             </div>
             
-            <div class="video-grid">
-                <!-- Larger videos -->
+            <div class="video-grid slide-in">
                 <div class="video-item large-video" data-video="https://www.youtube.com/embed/dn2onwm6soE?autoplay=1">
                     <div class="overlay-vidcard">
                         <img src="files/v1.jpg" alt="Video Cover" class="video-cover">
@@ -197,8 +180,7 @@
                     </div>
                 </div>
             </div>
-            <div class="video-grid-small">
-                <!-- Smaller videos -->
+            <div class="video-grid-small slide-in">
                 <div class="video-item small-video" data-video="https://player.twitch.tv/?video=2279530768&time=2h15m28s&parent=echo.dreamin.land&parent=www.dreamin.land&parent=www.echoofmobius.com&autoplay=true">
                     <div class="overlay-vidcard">
                         <img src="files/v3.jpg" alt="Video Cover" class="video-cover">
@@ -236,18 +218,18 @@
         <img src="files/line.png" alt="Section Divider" class="section-divider" id="social-media-section" >
         
         <section class="social-media-section">
-            <h2 class="section-title">Connect with Us</h2>
-            <p class="section-subtitle">Stay updated on our latest news and adventures</p>
+            <h2 class="section-title slide-in">Connect with Us</h2>
+            <p class="section-subtitle slide-in">Stay updated on our latest news and adventures</p>
         
-            <form id="contact-form" action="contact-script.php" method="POST" class="contact-form">
+            <form id="contact-form" action="contact-script.php" method="POST" class="contact-form slide-in">
                 <input type="text" name="name" placeholder="Your Name" required>
                 <input type="email" name="email" placeholder="Your Email" required>
                 <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
                 <button type="submit" id="submit-btn">Send Message</button>
-                <p id="form-message" class="form-message"></p> <!-- Message placeholder -->
+                <p id="form-message" class="form-message"></p>
             </form>
 
-            <div class="social-icons">
+            <div class="social-icons slide-in">
                 <a href="https://x.com/echo_of_mobius" target="_blank">
                     <img src="files/x.png" alt="X Icon">
                 </a>
@@ -499,7 +481,7 @@
                 // Staggered fade-in for initial characters
                 setTimeout(() => {
                     img1.classList.add('visible');
-                }, i * animationInterval * 1000);
+                }, 0 * animationInterval * 1000);
             }
         }
 
@@ -575,7 +557,7 @@
                 }
 
             }, animationInterval * 1000);
-        }, (numCharacters - 1) * animationInterval * 1000);
+        }, 0 * animationInterval * 1000);
 
         // Function to replace a character at a specific position
         function replaceCharacterAtPosition(position) {
@@ -602,6 +584,34 @@
         }
     });
 
+    // Function to check if an element is in the viewport
+    function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight);
+    }
+
+    // Function to add the visible class
+    function animateElements() {
+        const slideElements = document.querySelectorAll('.slide-in');
+        slideElements.forEach((element) => {
+            if (isInViewport(element)) {
+                element.classList.add('slide-in-visible');
+            }
+        });
+    }
+
+    // Run animation on scroll
+    window.addEventListener('scroll', animateElements);
+
+    // Run animation on load
+    window.addEventListener('load', animateElements);
+
+    window.addEventListener('load', () => {
+        const fadeElements = document.querySelectorAll('.fade-in');
+        fadeElements.forEach(element => {
+            element.classList.add('fade-in-visible');
+        });
+    });
 
 </script>
 </html>

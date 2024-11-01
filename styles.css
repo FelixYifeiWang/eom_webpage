@@ -741,7 +741,7 @@ p, a, li {
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.9);
-    z-index: 100;
+    z-index: 20000;
     justify-content: center;
     align-items: center;
 }
@@ -821,4 +821,28 @@ p, a, li {
     font-family: 'Cinzel', serif;
     font-size: 1.5em; /* Increase size as desired */
     color: #ff6347; /* Accent color to match your design */
+}
+
+/* Initial hidden state */
+.slide-in {
+    opacity: 0;
+    transform: translateY(30px); /* Starting point for slide-in */
+    transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+}
+
+/* Triggered slide-in effect */
+.slide-in-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Fade-in effect */
+.fade-in {
+    opacity: 0;
+    transition: opacity 3s ease-out;
+}
+
+.fade-in-visible {
+    opacity: 1;
+    transform: translateY(0);
 }
