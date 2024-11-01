@@ -91,7 +91,7 @@
             <div class="section-header">
                 <h2 class="section-title">Companion Showcase</h2>
                 <p class="section-subtitle" id="character-count">
-                    Meet <span id="character-number">30000</span> characters crafted by our community.
+                    Meet <span id="character-number" class="emphasized-number">30000</span> characters crafted by our community.
                 </p>
             </div>
             <div class="character-scene">
@@ -121,7 +121,7 @@
                         </div>
                     </div>
                     <div class="card-media">
-                        <img src="files/evolve.gif" alt="Chat and Raise Gameplay" class="card-gif">
+                        <img src="files/1.gif" alt="Chat and Raise Gameplay" class="card-gif">
                     </div>
                 </div>
             
@@ -138,7 +138,7 @@
                         </div>
                     </div>
                     <div class="card-media">
-                        <img src="files/adventure.gif" alt="Adventure Gameplay" class="card-gif">
+                        <img src="files/2.gif" alt="Adventure Gameplay" class="card-gif">
                     </div>
                 </div>
             
@@ -155,7 +155,7 @@
                         </div>
                     </div>
                     <div class="card-media">
-                        <img src="files/team.gif" alt="Skills Gameplay" class="card-gif">
+                        <img src="files/3.gif" alt="Skills Gameplay" class="card-gif">
                     </div>
                 </div>
             </div>
@@ -322,7 +322,24 @@
         document.getElementById('videoOverlay').style.display = 'none';
     }
 
+    const startDate = new Date("2024-10-15T00:00:00Z").getTime();
+    const baseCount = 25000; // Starting count
+    const incrementInterval = 240 * 1000; 
 
+    function updateCharacterCount() {
+        const now = Date.now();
+        const elapsed = now - startDate;
+        const increments = Math.floor(elapsed / incrementInterval);
+        const currentCount = baseCount + increments;
+
+        document.getElementById("character-number").textContent = currentCount.toLocaleString();
+    }
+
+    // Update count on page load
+    updateCharacterCount();
+
+    // Update the count every 90 seconds
+    setInterval(updateCharacterCount, incrementInterval);
 
     document.addEventListener("DOMContentLoaded", function () {
         // Full list of images
@@ -366,179 +383,131 @@
         const numCharacters = 5;
         
         // Animation settings
-        const animationDuration = 2; // Duration of the fade-in/out animation in seconds (slower)
-        const animationInterval = 1.5; // Time interval between character fade-ins (slower)
-        const totalInitialAnimationTime = (numCharacters - 1) * animationInterval + animationDuration;
+        const animationDuration = 1.5; // Duration of the fade-in/out animation in seconds
+        const animationInterval = 2; // Time interval between character replacements
+        const spread = 40; // Characters will be spread across ±30% from the center
 
-        // Spread setting
-        const spread = 60; // Characters will be spread across ±30% from the center (wider spread)
+        // Arrays to hold the two sets of img elements per position
+        const imgElements = [];
+        const visibleIndex = []; // Tracks which img element is currently visible per position (0 or 1)
 
-        // Function to select random images
-        function selectRandomImages(excludeList = []) {
-            const availableImages = imageList.filter(img => !excludeList.includes(img));
-            const selectedImages = [];
-            const imageListCopy = [...availableImages]; // Copy the list to avoid modifying the original
-            for (let i = 0; i < numCharacters; i++) {
-                if (imageListCopy.length === 0) break; // In case there are not enough images left
-                const randomIndex = Math.floor(Math.random() * imageListCopy.length);
-                selectedImages.push(imageListCopy.splice(randomIndex, 1)[0]);
+        // Arrays to hold current and next team images
+        let currentTeamImages = [];
+        let nextTeamImages = [];
+
+        // Function to select a unique random set of images
+        let lastGroupImages = [];
+        let newGroupImages = [];
+
+        function selectRandomImages(excludeList = [], count = numCharacters) {
+            let imagesStartingWith1 = imageList.filter(img => img.startsWith('1') && !excludeList.includes(img));
+            let imagesStartingWith2 = imageList.filter(img => img.startsWith('2') && !excludeList.includes(img));
+            let imagesStartingWith3 = imageList.filter(img => img.startsWith('3') && !excludeList.includes(img));
+
+            // Reset excludeList if we don't have enough images
+            if (imagesStartingWith1.length === 0 || imagesStartingWith2.length === 0 || imagesStartingWith3.length === 0) {
+                excludeList = [];
+                imagesStartingWith1 = imageList.filter(img => img.startsWith('1'));
+                imagesStartingWith2 = imageList.filter(img => img.startsWith('2'));
+                imagesStartingWith3 = imageList.filter(img => img.startsWith('3'));
             }
+
+            const selectedImages = [];
+
+            // Select one image starting with '1'
+            const randomIndex1 = Math.floor(Math.random() * imagesStartingWith1.length);
+            selectedImages.push(imagesStartingWith1[randomIndex1]);
+
+            // Select one image starting with '2'
+            const randomIndex2 = Math.floor(Math.random() * imagesStartingWith2.length);
+            selectedImages.push(imagesStartingWith2[randomIndex2]);
+
+            // Select one image starting with '3'
+            const randomIndex3 = Math.floor(Math.random() * imagesStartingWith3.length);
+            selectedImages.push(imagesStartingWith3[randomIndex3]);
+
+            // Exclude images already selected
+            let availableImages = imageList.filter(img => !excludeList.includes(img) && !selectedImages.includes(img));
+
+            // Select remaining images randomly
+            const remainingCount = count - selectedImages.length;
+            for (let i = 0; i < remainingCount; i++) {
+                if (availableImages.length === 0) {
+                    // Reset availableImages if we've run out
+                    availableImages = imageList.filter(img => !excludeList.includes(img) && !selectedImages.includes(img));
+                }
+                const randomIndex = Math.floor(Math.random() * availableImages.length);
+                selectedImages.push(availableImages.splice(randomIndex, 1)[0]);
+            }
+
             return selectedImages;
         }
-        
-        // Function to create and display characters
-        function displayCharacters(selectedImages) {
-            // Get the character scene container
-            const characterScene = document.querySelector(".character-scene");
-            characterScene.innerHTML = ''; // Clear any existing images
-            
-            // Create img elements for the selected images
-            selectedImages.forEach((imageName, index) => {
-                const img = document.createElement('img');
-                img.src = `characters/${imageName}`;
-                img.alt = `Character ${index + 1}`;
-                img.classList.add('character');
-                characterScene.appendChild(img);
-            });
-            
-            // Proceed with positioning and animating the characters
-            positionAndAnimateCharacters();
-        }
-        
-        // Function to position and animate characters
-        function positionAndAnimateCharacters() {
-            const characters = document.querySelectorAll(".character");
-            const totalCharacters = characters.length;
-            const centerPosition = 50; // Center position in percent
-        
-            // Generate staggered animation delays and shuffle them for a different sequence
-            let delays = [];
-            for (let i = 0; i < totalCharacters; i++) {
-                delays.push(i * animationInterval); // Adjusted time interval
-            }
-            delays.sort(() => Math.random() - 0.5); // Shuffle the delays
-        
-            // Create an array to hold character data for sorting
-            let characterData = [];
-        
-            // First, calculate positions and collect character data
-            characters.forEach((character, index) => {
-                // Compute the horizontal position to spread characters more widely
-                let position;
-                if (totalCharacters === 1) {
-                    position = centerPosition;
-                } else {
-                    position = centerPosition - (spread / 2) + (index * spread / (totalCharacters - 1));
-                }
-        
-                // Calculate the distance from the center for z-index calculation
-                const distanceFromCenter = Math.abs(position - centerPosition);
-        
-                // Collect character data
-                characterData.push({
-                    element: character,
-                    index: index,
-                    position: position,
-                    distanceFromCenter: distanceFromCenter,
-                });
-            });
-        
-            // Sort characters so that more centered ones have higher z-index
-            characterData.sort((a, b) => a.distanceFromCenter - b.distanceFromCenter);
-        
-            // Apply styles to each character
-            characterData.forEach((data, sortedIndex) => {
-                const { element: character, index, position, distanceFromCenter } = data;
-        
-                // Set the horizontal position
-                character.style.left = `${position}%`;
-        
-                // Center the character horizontally
-                character.style.transform = 'translateX(-50%)';
-        
-                // Determine size based on filename
-                const fileName = character.src.split('/').pop();
-                const sizeClass = fileName.charAt(0);
-        
-                // Set the scale based on sizeClass
-                let scale;
-                if (sizeClass === '1') scale = 0.3;
-                else if (sizeClass === '2') scale = 0.4;
-                else if (sizeClass === '3') scale = 0.5;
-                else scale = 0.4; // Default scale if sizeClass is not 1, 2, or 3
-        
-                // Apply scale and random horizontal flip
-                const flip = Math.random() < 0.5 ? -1 : 1;
-                character.style.transform += ` scale(${flip * scale}, ${scale})`;
-        
-                // Apply a random animation delay from the shuffled delays
-                character.style.animationDelay = `${delays[index]}s`;
-        
-                // Set z-index so that more centered characters are on top
-                const zIndex = 1000 - Math.round(distanceFromCenter * 10);
-                character.style.zIndex = zIndex;
-        
-                // Set the animation duration (slower)
-                character.style.animationDuration = `${animationDuration}s`;
-            });
-        }
-        
-        // Initial display of characters
-        const initialSelectedImages = selectRandomImages();
-        displayCharacters(initialSelectedImages);
-        
-        // After the initial animations, start replacing characters
-        setTimeout(() => {
-            // Start the replacement loop
-            let replaceIndex = 0; // Index of the character to replace
-            setInterval(() => {
-                replaceCharacter(replaceIndex);
-                replaceIndex = (replaceIndex + 1) % numCharacters; // Loop back to 0 after reaching the end
-            }, animationInterval * 1000);
-        }, totalInitialAnimationTime * 1000);
-        
-        // Function to replace a character
-        function replaceCharacter(index) {
-            const characters = document.querySelectorAll(".character");
-            const characterToReplace = characters[index];
-            const currentImages = Array.from(characters).map(char => char.src.split('/').pop());
-            const newImageList = imageList.filter(img => !currentImages.includes(img));
-            
-            if (newImageList.length === 0) return; // No new images to replace with
-            
-            // Select a new image
-            const randomIndex = Math.floor(Math.random() * newImageList.length);
-            const newImageName = newImageList[randomIndex];
-            
-            // Create a new img element
-            const newCharacter = document.createElement('img');
-            newCharacter.src = `characters/${newImageName}`;
-            newCharacter.alt = `Character ${index + 1}`;
-            newCharacter.classList.add('character');
-            newCharacter.style.opacity = '0'; // Start invisible
-            newCharacter.style.position = 'absolute';
-            newCharacter.style.bottom = '0';
-            
-            // Fade out the old character and remove it
-            characterToReplace.style.transition = `opacity ${animationDuration}s`;
-            characterToReplace.style.opacity = '0';
-            setTimeout(() => {
-                characterToReplace.parentNode.removeChild(characterToReplace);
-            }, animationDuration * 1000);
 
-            // Append the new character to the scene
-            characterToReplace.parentNode.appendChild(newCharacter);
-            
-            // Position and animate the new character
-            positionAndAnimateNewCharacter(newCharacter, index);
-            
+        let replacementOrder = [];
+        let replacePositionIndex = 0; // Initialize the index to track the replacement position
+
+        // Modify the initialization to generate the initial random order
+        function initializeReplacementOrder() {
+            replacementOrder = [];
+            for (let i = 0; i < numCharacters; i++) {
+                replacementOrder.push(i);
+            }
+            // Shuffle the array to create a random order
+            replacementOrder.sort(() => Math.random() - 0.5);
         }
-        
-        // Function to position and animate the new character
-        function positionAndAnimateNewCharacter(character, index) {
+
+        initializeReplacementOrder();
+
+        // Get the character scene container
+        const characterScene = document.querySelector(".character-scene");
+        characterScene.innerHTML = ''; // Clear any existing content
+
+        // Initialize image elements and load the initial team
+        function initializeCharacters() {
+            // Select initial group of images with the required constraints
+            lastGroupImages = selectRandomImages([], numCharacters);
+
+            for (let i = 0; i < numCharacters; i++) {
+                // Create two img elements per position
+                const img1 = document.createElement('img');
+                const img2 = document.createElement('img');
+
+                img1.classList.add('character'); // Start without 'visible' class
+                img2.classList.add('character'); // img2 hidden
+
+                img1.style.position = 'absolute';
+                img1.style.bottom = '0';
+                img2.style.position = 'absolute';
+                img2.style.bottom = '0';
+
+                // Set initial image for img1
+                const imageName = lastGroupImages[i];
+                img1.src = `characters/${imageName}`;
+                img1.alt = `Character ${i + 1}`;
+                positionAndStyleCharacter(img1, i);
+
+                // img2 will get its src when it's time to display it
+
+                // Append images to the scene
+                characterScene.appendChild(img1);
+                characterScene.appendChild(img2);
+
+                // Store the img elements
+                imgElements[i] = [img1, img2];
+                visibleIndex[i] = 0; // img1 is the initial image
+
+                // Staggered fade-in for initial characters
+                setTimeout(() => {
+                    img1.classList.add('visible');
+                }, i * animationInterval * 1000);
+            }
+        }
+
+        // Function to position and style characters
+        function positionAndStyleCharacter(character, index) {
             const totalCharacters = numCharacters;
             const centerPosition = 50; // Center position in percent
-        
+
             // Compute the horizontal position
             let position;
             if (totalCharacters === 1) {
@@ -547,56 +516,92 @@
                 position = centerPosition - (spread / 2) + (index * spread / (totalCharacters - 1));
             }
             character.style.left = `${position}%`;
-        
+
             // Center the character horizontally
             character.style.transform = 'translateX(-50%)';
-        
+
             // Determine size based on filename
             const fileName = character.src.split('/').pop();
             const sizeClass = fileName.charAt(0);
-        
+
             // Set the scale based on sizeClass
             let scale;
             if (sizeClass === '1') scale = 0.3;
             else if (sizeClass === '2') scale = 0.4;
             else if (sizeClass === '3') scale = 0.5;
-            else scale = 0.4; // Default scale if sizeClass is not 1, 2, or 3
-        
+            else scale = 0.4; // Default scale
+
             // Apply scale and random horizontal flip
             const flip = Math.random() < 0.5 ? -1 : 1;
             character.style.transform += ` scale(${flip * scale}, ${scale})`;
-        
-            // Set z-index based on distance from center
+
+            // Set z-index so that more centered characters are on top
             const distanceFromCenter = Math.abs(position - centerPosition);
             const zIndex = 1000 - Math.round(distanceFromCenter * 10);
             character.style.zIndex = zIndex;
-        
-            // Set the animation duration for fade-in
-            character.style.transition = `opacity ${animationDuration}s`;
+        }
+
+        // Initialize the characters
+        initializeCharacters();
+        setTimeout(() => {
+            // Start replacing characters one by one at intervals
+            setInterval(() => {
+                const positionToReplace = replacementOrder[replacePositionIndex];
+
+                // On the first replacement of the cycle, select a new group of images
+                if (replacePositionIndex === 0) {
+                    // Update lastGroupImages
+                    lastGroupImages = [];
+                    for (let i = 0; i < numCharacters; i++) {
+                        const imgIndex = visibleIndex[i];
+                        lastGroupImages.push(imgElements[i][imgIndex].src.split('/').pop());
+                    }
+
+                    // Select new group of images, excluding lastGroupImages
+                    newGroupImages = selectRandomImages(lastGroupImages, numCharacters);
+                }
+
+                replaceCharacterAtPosition(positionToReplace);
+
+                // Increment replacePositionIndex
+                replacePositionIndex++;
+
+                // Check if we've reached the end of the current replacementOrder
+                if (replacePositionIndex >= numCharacters) {
+                    // Reset the index
+                    replacePositionIndex = 0;
+                    // Generate a new random order for the next turn
+                    initializeReplacementOrder();
+                }
+
+            }, animationInterval * 1000);
+        }, (numCharacters - 1) * animationInterval * 1000);
+
+        // Function to replace a character at a specific position
+        function replaceCharacterAtPosition(position) {
+            const currentVisibleIndex = visibleIndex[position];
+            const nextVisibleIndex = (currentVisibleIndex + 1) % 2;
+
+            const currentImg = imgElements[position][currentVisibleIndex];
+            const nextImg = imgElements[position][nextVisibleIndex];
+
+            // Assign the new image from newGroupImages
+            const nextImageName = newGroupImages[position];
+            nextImg.src = `characters/${nextImageName}`;
+            nextImg.alt = `Character ${position + 1}`;
+            positionAndStyleCharacter(nextImg, position);
+
+            // Start the fade-in and fade-out transitions
             setTimeout(() => {
-                character.style.opacity = '1';
-            }, 50); // Slight delay to ensure the transition occurs
+                currentImg.classList.remove('visible');
+                nextImg.classList.add('visible');
+            }, 50); // Slight delay to ensure transitions are applied
+
+            // Update the visible index
+            visibleIndex[position] = nextVisibleIndex;
         }
     });
 
-    const startDate = new Date("2024-10-15T00:00:00Z").getTime();
-    const baseCount = 25000; // Starting count
-    const incrementInterval = 240 * 1000; 
-
-    function updateCharacterCount() {
-        const now = Date.now();
-        const elapsed = now - startDate;
-        const increments = Math.floor(elapsed / incrementInterval);
-        const currentCount = baseCount + increments;
-
-        document.getElementById("character-number").textContent = currentCount.toLocaleString();
-    }
-
-    // Update count on page load
-    updateCharacterCount();
-
-    // Update the count every 90 seconds
-    setInterval(updateCharacterCount, incrementInterval);
 
 </script>
 </html>

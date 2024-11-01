@@ -52,7 +52,7 @@ p, a, li {
     position: fixed;
     width: 100%;
     top: 0;
-    z-index: 10;
+    z-index: 10000;
     display: flex;
     align-items: center;
     justify-content: space-between; /* Ensure space between logo and nav */
@@ -801,7 +801,12 @@ p, a, li {
     bottom: 0;
     opacity: 0;
     transform-origin: center bottom;
-    animation: fadeInCharacter 1s ease forwards;
+    transition: opacity 2s; 
+    filter: drop-shadow(0 -50px 50px black);
+}
+
+.character.visible {
+    opacity: 1;
 }
 
 /* Fade-in animation */
@@ -811,3 +816,9 @@ p, a, li {
 }
 
 
+.emphasized-number {
+    font-weight: bolder;
+    font-family: 'Cinzel', serif;
+    font-size: 1.5em; /* Increase size as desired */
+    color: #ff6347; /* Accent color to match your design */
+}
