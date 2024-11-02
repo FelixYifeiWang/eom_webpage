@@ -306,22 +306,32 @@
 
     const startDate = new Date("2024-10-15T00:00:00Z").getTime();
     const baseCount = 25000; // Starting count
-    const incrementInterval = 240 * 1000; 
+    const incrementInterval = 180 * 1000;
+    const now = Date.now();
+    const elapsed = now - startDate;
+    const increments = Math.floor(elapsed / incrementInterval);
+    let currentCount = baseCount + increments;
 
     function updateCharacterCount() {
-        const now = Date.now();
-        const elapsed = now - startDate;
-        const increments = Math.floor(elapsed / incrementInterval);
-        const currentCount = baseCount + increments;
+        // Increment the count by 1
+        currentCount += 1;
 
+        // Update the displayed count
         document.getElementById("character-number").textContent = currentCount.toLocaleString();
+
+        // Generate the next delay (average 240 seconds, large random range)
+        const minDelay = 10000;    // Minimum delay in milliseconds (e.g., 10 seconds)
+        const maxDelay = 355000;   // Maximum delay in milliseconds (e.g., 470 seconds)
+        const nextDelay = Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
+        console.log(nextDelay)
+
+        // Schedule the next update with the random delay
+        setTimeout(updateCharacterCount, nextDelay);
     }
 
-    // Update count on page load
+    // Initial call to start the cycle
     updateCharacterCount();
 
-    // Update the count every 90 seconds
-    setInterval(updateCharacterCount, incrementInterval);
 
     document.addEventListener("DOMContentLoaded", function () {
         // Full list of images
