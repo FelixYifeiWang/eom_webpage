@@ -211,7 +211,8 @@ p, a, li {
     -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 88%, rgba(0, 0, 0, 0.7) 92%, rgba(0, 0, 0, 0.3) 96%, rgba(0, 0, 0, 0) 100%);
 }
 
-.background-video {
+#background-video,
+#background-image {
     position: absolute;
     top: 0;
     left: 0;
@@ -219,6 +220,10 @@ p, a, li {
     height: 100%;
     object-fit: cover;
     z-index: -2;
+}
+
+#background-image {
+    display: none; /* Hidden by default; only shown for Safari */
 }
 
 .overlay {

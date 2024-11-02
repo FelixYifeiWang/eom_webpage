@@ -37,10 +37,11 @@
 
     <main class="content">
         <section id="overview" class="section full-screen">
-            <video autoplay loop muted playsinline class="background-video fade-in">
+            <video autoplay loop muted playsinline class="fade-in" id="background-video">
                 <source src="files/bg.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
+            <img src="files/vidbg.jpg" id="background-image" alt="Background Image">
             <div class="overlay"></div>
 
             <div class="slogan slide-in">
@@ -255,7 +256,7 @@
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const video = document.querySelector(".background-video");
+        const video = document.querySelector("#background-video");
         video.playbackRate = 0.7; // Set playback speed to 0.5
     });
     // JavaScript to toggle logos on scroll
@@ -622,6 +623,22 @@
         fadeElements.forEach(element => {
             element.classList.add('fade-in-visible');
         });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        const video = document.getElementById('background-video');
+        const image = document.getElementById('background-image');
+
+        if (isSafari) {
+            // Hide the video and show the image if Safari
+            video.style.display = 'none';
+            image.style.display = 'block';
+        } else {
+            // For non-Safari browsers, show the video
+            video.style.display = 'block';
+            image.style.display = 'none';
+        }
     });
 
 </script>
