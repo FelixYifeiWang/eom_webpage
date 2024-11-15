@@ -307,8 +307,8 @@
         document.getElementById('videoOverlay').style.display = 'none';
     }
 
-    const startDate = new Date("2024-10-15T00:00:00Z").getTime();
-    const baseCount = 25000; // Starting count
+    const startDate = new Date("2024-11-11T00:00:00Z").getTime();
+    const baseCount = 15000; // Starting count
     const incrementInterval = 180 * 1000;
     const now = Date.now();
     const elapsed = now - startDate;
@@ -324,7 +324,7 @@
 
         // Generate the next delay (average 240 seconds, large random range)
         const minDelay = 10000;    // Minimum delay in milliseconds (e.g., 10 seconds)
-        const maxDelay = 350000;   // Maximum delay in milliseconds (e.g., 470 seconds)
+        const maxDelay = 350000;   // Maximum delay in milliseconds (e.g., 350 seconds)
         const nextDelay = Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
         console.log(nextDelay)
 
